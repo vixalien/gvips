@@ -18,6 +18,9 @@
     "typecheck": "tsc --strict",
     "generate-types": "gi-ts generate",
     "generate-index": "node lib/gen-gi.js",
-    "config": "gi-ts config"
+    "config": "gi-ts config",
+    "build": "node lib/build.js",
+    "test-raw": "gjs -m _build/runner.js",
+    "test": "yarn build && yarn test-raw"
   }
 }

@@ -43,6 +43,7 @@
     "lib/ambient.d.ts",
     "gi-types/gi.d.ts",
     "src/**/*.ts",
+    "test/*.ts",
   ],
   "exclude": [
     "node_modules/@types/**",
