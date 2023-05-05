@@ -1,3 +1,9 @@
 import Vips from "gi://Vips";
 
-console.log(Vips.version_string());
+Vips.init("vips-test");
+
+Vips.Foreign.get_suffixes().map((suffix) => {
+  console.log("suffix", suffix);
+});
+
+console.log();

@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    "TAG_EDITMSG": "git-commit",
+    "vips.h": "c",
+    "gvips.h": "c",
+    "glib-object.h": "c"
+  }
+}
