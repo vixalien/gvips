@@ -1,9 +1,7 @@
 import Vips from "gi://Vips";
 
-Vips.init("vips-test");
+import { generate_docs_all } from "src/operation";
 
-Vips.Foreign.get_suffixes().map((suffix) => {
-  console.log("suffix", suffix);
-});
+generate_docs_all();
 
 console.log();

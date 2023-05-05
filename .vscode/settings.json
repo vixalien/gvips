@@ -2,7 +2,7 @@
   "files.associations": {
     "TAG_EDITMSG": "git-commit",
     "vips.h": "c",
-    "gvips.h": "c",
+    "gvips-ext.h": "c",
     "glib-object.h": "c"
   },
   "C_Cpp.default.compileCommands": "build/vscode_compile_commands.json"

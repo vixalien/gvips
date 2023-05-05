@@ -18,9 +18,10 @@
     "typecheck": "tsc --strict",
     "generate-types": "gi-ts generate",
     "generate-index": "node lib/gen-gi.js",
+    "generate": "yarn generate-types && yarn generate-index",
     "config": "gi-ts config",
     "build": "node lib/build.js",
-    "test-raw": "gjs -m _build/runner.js",
+    "test-raw": "LD_LIBRARY_PATH=build/gvips-ext GI_TYPELIB_PATH=build/gvips-ext gjs -m _build/runner.js",
     "test": "yarn build && yarn test-raw"
   }
 }
