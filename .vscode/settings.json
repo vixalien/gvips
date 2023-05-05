@@ -4,5 +4,6 @@
     "vips.h": "c",
     "gvips.h": "c",
     "glib-object.h": "c"
-  }
+  },
+  "C_Cpp.default.compileCommands": "build/vscode_compile_commands.json"
 }

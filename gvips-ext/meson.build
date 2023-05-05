@@ -1,10 +1,3 @@
-project(
-  'gvips-ext',
-  'c',
-  version: '0.0.1',
-  license: 'MIT',
-)
-
 version = meson.project_version()
 
 lib = library(
@@ -25,7 +18,7 @@ gnome.generate_gir(
     'gvips-ext.h',
   ],
   namespace: 'GvipsExt',
-  nsversion: version,
+  nsversion: '1.0',
   identifier_prefix: 'GvipsExt',
   symbol_prefix: 'gvips_ext',
   includes: [
