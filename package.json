@@ -1,0 +1,23 @@
+{
+  "name": "gvips",
+  "version": "0.0.1",
+  "description": "Bindings to VIPS for GJS",
+  "main": "index.js",
+  "repository": "https://github.com/vixalien/gvips",
+  "author": "vixalien",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@gi.ts/cli": "^1.5.10",
+    "@gi.ts/lib": "^1.5.13",
+    "esbuild": "^0.17.18",
+    "typescript": "^5.0.4"
+  },
+  "scripts": {
+    "typecheck": "tsc --strict",
+    "generate-types": "gi-ts generate",
+    "generate-index": "node lib/gen-gi.js",
+    "config": "gi-ts config"
+  }
+}

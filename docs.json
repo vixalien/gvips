@@ -1,0 +1,17 @@
+{
+  "options": {
+    "inferGenerics": true,
+    "promisify": true,
+    "versionedImports": true,
+    "versionedOutput": true,
+    "gjsModules": true,
+    "importPrefix": "./",
+    "withDocs": true,
+    "out": "./gi-types/"
+  },
+  "libraries": {
+    "Vips": "8.0",
+    "GObject": "2.0",
+    "GLib": "2.0"
+  }
+}

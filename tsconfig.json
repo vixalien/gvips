@@ -1,0 +1,50 @@
+// {
+//   "compilerOptions": {
+//     "lib": [
+//       "ESNext"
+//     ],
+//     "module": "esnext",
+//     "target": "ES2020",
+//     "moduleResolution": "node",
+//     "strict": true,
+//     "downlevelIteration": true,
+//     "skipLibCheck": true,
+//     "forceConsistentCasingInFileNames": true,
+//     "allowJs": true,
+//     "types": [
+//     ]
+//   }
+// }
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "strict": true,
+    "paths": {
+      "*": [
+        "*",
+        "types/*"
+      ],
+    },
+    "target": "es2017",
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "module": "ESNext",
+    "outDir": "_build",
+    "lib": [
+      "ES2020",
+      "DOM"
+    ],
+    
+    // We use esbuild to build
+    "noEmit": true,
+    "skipLibCheck": true,
+  },
+  "include": [
+    "lib/ambient.d.ts",
+    "gi-types/gi.d.ts",
+    "src/**/*.ts",
+  ],
+  "exclude": [
+    "node_modules/@types/**",
+  ],
+}
