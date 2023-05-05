@@ -1,5 +1,15 @@
 [
     {
+        "name": "GvipsExt",
+        "api_version": "1.0",
+        "c_prefix": [
+            "gvips_ext"
+        ],
+        "path": "/home/alien/sites/gvips/build/gvips-ext/GvipsExt-1.0.gir",
+        "id": "GvipsExt-1.0.gir",
+        "slug": "gvipsext10"
+    },
+    {
         "name": "AccountsService",
         "api_version": "1.0",
         "c_prefix": [

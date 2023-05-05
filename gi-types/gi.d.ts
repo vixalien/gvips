@@ -18,3 +18,10 @@ declare module "gi://GLib" {
 declare module "gi://GLib?version=2" {
   export * as default from "gi-types/glib2";
 }
+
+declare module "gi://GvipsExt" {
+  export * as default from "gi-types/gvipsext1";
+}
+declare module "gi://GvipsExt?version=1" {
+  export * as default from "gi-types/gvipsext1";
+}
