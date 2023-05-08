@@ -148,10 +148,20 @@ export class Introspect {
       this.method_args = this.required_input;
     }
   }
+
+  private static introspect_cache = new Map<string, Introspect>();
+
+  static get(name: string) {
+    if (!this.introspect_cache.has(name)) {
+      this.introspect_cache.set(name, new Introspect(name));
+    }
+
+    return this.introspect_cache.get(name)!;
+  }
 }
 
 export function generate_docs(name: string) {
-  const intro = new Introspect(name);
+  const intro = Introspect.get(name);
   console.log("generate_docs", name);
 }
 
