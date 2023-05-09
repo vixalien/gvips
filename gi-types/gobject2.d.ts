@@ -1,7 +1,7 @@
 /**
  * GObject 2.0
  *
- * Generated from 2.76.1
+ * Generated from 2.76.2
  */
 
 import * as GLib from "./glib2";

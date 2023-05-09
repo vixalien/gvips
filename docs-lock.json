@@ -317,16 +317,6 @@
         "slug": "dbusglib10"
     },
     {
-        "name": "DMAP",
-        "api_version": "3.0",
-        "c_prefix": [
-            "dmap"
-        ],
-        "path": "/usr/share/gir-1.0/DMAP-3.0.gir",
-        "id": "DMAP-3.0.gir",
-        "slug": "dmap30"
-    },
-    {
         "name": "EBackend",
         "api_version": "1.2",
         "c_prefix": [
