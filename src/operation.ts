@@ -219,7 +219,7 @@ export class Introspect {
       );
     }
 
-    if ("string_options" in options) {
+    if (("string_options" in options) && options.string_options) {
       if (!op.set_from_string(options.string_options)) {
         throw new Error(`unable to call ${this.name}`);
       }
@@ -254,6 +254,8 @@ export class Introspect {
 
     // set any optional args
     for (const name of Object.keys(options)) {
+      if (name === "string_options") continue;
+
       const value = options[name];
       const details = this.details.get(name)!;
 

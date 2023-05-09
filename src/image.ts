@@ -1,5 +1,6 @@
 import Vips from "gi://Vips";
 import { vips_object_set } from "./object";
+import { Introspect } from "./operation";
 
 /** rectangular array */
 export function _is_2D(array: any) {
@@ -63,4 +64,27 @@ export function vips_image_imageize(image: Vips.Image, value: any) {
   } else {
     return Vips.Image.new_from_image1(image, value);
   }
+}
+
+export function vips_image_write_to_file(
+  image: Vips.Image,
+  filename: string,
+  options: Record<string, any> = {},
+) {
+  const path = Vips.filename_get_filename(filename);
+
+  const string_options = Vips.filename_get_options(filename);
+
+  const save = Vips.Foreign.find_save(path);
+
+  if (!save) {
+    throw new Error(`no save handler for ${path}`);
+  }
+
+  const op = Introspect.get(save);
+
+  return op.call([image, path, {
+    ...options,
+    string_options,
+  }]);
 }
