@@ -43,4 +43,6 @@ void gvips_ext_object_args_map(VipsObject *object, GvipsExtArgsMapFunc fn);
  */
 void *gvips_ext_type_map(GType base, VipsTypeMap2Fn fn, void *a, void *b);
 
+GType gvips_ext_value_get_type(GValue* value);
+
 G_END_DECLS

@@ -1,7 +1,7 @@
 import GObject from "gi://GObject";
 import Vips from "gi://Vips";
 import GvipsExt from "gi://GvipsExt";
-import { gvalue_set } from "./value";
+import { gvalue_get, gvalue_set } from "./value";
 
 export const pspec_class_cache = new Map<string, GObject.ParamSpec>();
 export const pspec_cache = new Map<Vips.Object, typeof pspec_class_cache>();
@@ -71,6 +71,8 @@ export function vips_object_get(obj: Vips.Object, name: string) {
   gvalue.init(gtype);
   /// @ts-ignore - wrong types, again
   obj.get_property(name, gvalue);
+
+  return gvalue_get(gvalue);
 }
 
 export function vips_object_set(obj: Vips.Object, name: string, value: any) {

@@ -253,7 +253,7 @@ export class Introspect {
     });
 
     // set any optional args
-    for (const name of options) {
+    for (const name of Object.keys(options)) {
       const value = options[name];
       const details = this.details.get(name)!;
 
@@ -304,7 +304,7 @@ export class Introspect {
       }
     });
 
-    if (Object.keys(options).length > 0) {
+    if (Object.keys(opts).length > 0) {
       result.push(opts);
     }
 

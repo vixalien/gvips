@@ -1,6 +1,7 @@
 import Vips from "gi://Vips";
 import GObject from "gi://GObject";
 import GLib from "gi://GLib";
+import GvipsExt from "gi://GvipsExt";
 
 export const types = {
   bool: GObject.TYPE_BOOLEAN,
@@ -24,7 +25,7 @@ export const types = {
 };
 
 export function gvalue_set(gvalue: GObject.Value, value: any) {
-  const gtype = gvalue.get_gtype();
+  const gtype = GvipsExt.value_get_type(gvalue);
   const fundamental = GObject.type_fundamental(gtype);
 
   if (gtype === types.bool) {
@@ -84,10 +85,8 @@ export function gvalue_set(gvalue: GObject.Value, value: any) {
 }
 
 export function gvalue_get(gvalue: GObject.Value) {
-  const gtype = gvalue.get_gtype();
+  const gtype = GvipsExt.value_get_type(gvalue);
   const fundamental = GObject.type_fundamental(gtype);
-
-  let result: any;
 
   if (gtype === types.bool) {
     return gvalue.get_boolean();

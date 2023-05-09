@@ -55,3 +55,7 @@ void *gvips_ext_type_map(GType base, VipsTypeMap2Fn fn, void *a, void *b)
 {
   return vips_type_map(base, fn, a, b);
 }
+
+GType gvips_ext_value_get_type(GValue* value) {
+  return G_VALUE_TYPE(value);
+}
