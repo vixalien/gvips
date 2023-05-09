@@ -3,7 +3,13 @@ import GObject from "gi://GObject";
 import GvipsExt from "gi://GvipsExt";
 
 import { at_least_libvips } from "./base";
-import { get_blurb, get_typeof } from "./object";
+import {
+  get_blurb,
+  get_typeof,
+  vips_object_get,
+  vips_object_set,
+} from "./object";
+import { vips_image_imageize } from "./image";
 
 Vips.init("vips-test");
 
@@ -14,7 +20,55 @@ export interface ArgumentInfo {
   type: GObject.GType;
 }
 
+function _find_inside<T extends any>(
+  cond: (x: T) => boolean,
+  arg: T | T[],
+): T | null {
+  if (Array.isArray(arg)) {
+    for (const x of arg) {
+      const result = _find_inside(cond, x);
+
+      if (result) {
+        return result;
+      }
+    }
+  } else if (cond(arg)) {
+    return arg;
+  }
+
+  return null;
+}
+
+export function vips_operation_set(
+  op: Vips.Operation,
+  name: string,
+  flags: Vips.ArgumentFlags,
+  match_image: Vips.Image | null,
+  value: any,
+) {
+  // if the object wants an image and we have a constant, _imageize it
+  // if the objects wants an image array, _imageize each element
+  if (match_image) {
+    const gtype = get_typeof(op, name);
+
+    if (gtype === Vips.Image.$gtype) {
+      value = vips_image_imageize(match_image, value);
+    } else if (gtype === Vips.ArrayImage.$gtype) {
+      value = value.map((x: any) => vips_image_imageize(match_image, x));
+    }
+  }
+
+  // modify args need to be copied before they are set
+  if ((flags & Vips.ArgumentFlags.MODIFY) != 0) {
+    // get a unique copy
+    value = (value).copy().copy_memory();
+  }
+
+  vips_object_set(op, name, value);
+}
+
 export class Introspect {
+  name: string;
   description: string;
   flags: Vips.OperationFlags;
   details: Map<string, ArgumentInfo>;
@@ -31,6 +85,8 @@ export class Introspect {
   method_args: string[];
 
   constructor(operation_name: string) {
+    this.name = operation_name;
+
     const op = Vips.Operation.new(operation_name);
 
     this.description = op.get_description();
@@ -147,6 +203,120 @@ export class Introspect {
     } else {
       this.method_args = this.required_input;
     }
+  }
+
+  call(__args: any[] | [...any[], Record<string, string>][]) {
+    const op = Vips.Operation.new(this.name);
+
+    const options = typeof __args[__args.length - 1] === "object"
+      ? __args.pop()
+      : {};
+    const args = __args as any[];
+
+    if (args.length !== this.required_input.length) {
+      throw new Error(
+        `${this.name} needs ${this.required_input.length} arguments, but ${args.length} were given`,
+      );
+    }
+
+    if ("string_options" in options) {
+      if (!op.set_from_string(options.string_options)) {
+        throw new Error(`unable to call ${this.name}`);
+      }
+    }
+
+    // the first image argument is the thing we expand constants to match
+    // look inside arrays for images, since we may be passing an array of images
+    // as a single param
+    const match_image = _find_inside((x) => x instanceof Vips.Image, args);
+
+    // collect a list of all input references here
+    const references = [];
+
+    function add_reference(x: any) {
+      if (x instanceof Vips.Image) {
+        references.push(x);
+      }
+    }
+
+    const obj: Vips.Object = {} as any;
+
+    this.required_input.forEach((name, i) => {
+      const value = args[i];
+      vips_operation_set(
+        op,
+        name,
+        this.details.get(name)!.flags,
+        match_image,
+        value,
+      );
+    });
+
+    // set any optional args
+    for (const name of options) {
+      const value = options[name];
+      const details = this.details.get(name)!;
+
+      if (
+        (!this.optional_input.includes(name) &&
+          !this.optional_output.includes(name)) ||
+        (details === undefined)
+      ) {
+        throw new Error(
+          `${this.name} does not support optional argument ${name}`,
+        );
+      }
+
+      if ((details.flags & Vips.ArgumentFlags.DEPRECATED) != 0) {
+        console.warn(`argument ${name} is deprecated for ${this.name}`);
+      }
+
+      vips_operation_set(
+        op,
+        name,
+        details.flags,
+        match_image,
+        value,
+      );
+    }
+
+    // build operation
+    const operation = Vips.cache_operation_build(op);
+
+    if (!operation) {
+      throw new Error(`unable to call ${this.name}`);
+    }
+
+    const result = [];
+
+    // fetch required output args (plus modified input images)
+    this.required_output.forEach((name) => {
+      const value = vips_object_get(operation, name);
+      result.push(value);
+    });
+
+    // fetch optional output args
+    const opts: Record<string, any> = {};
+    this.optional_output.forEach((name) => {
+      if (options.hasOwnProperty(name)) {
+        const value = vips_object_get(operation, name);
+        opts[name] = value;
+      }
+    });
+
+    if (Object.keys(options).length > 0) {
+      result.push(opts);
+    }
+
+    operation.unref_outputs();
+
+    if (result.length == 0) {
+      return null;
+    } else if (result.length == 1) {
+      return result[0];
+    }
+
+    return result;
   }
 
   private static introspect_cache = new Map<string, Introspect>();

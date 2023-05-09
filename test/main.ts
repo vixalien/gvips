@@ -1,7 +1,5 @@
-import Vips from "gi://Vips";
+import { Introspect } from "src/operation";
 
-import { generate_docs_all } from "src/operation";
+const op = Introspect.get("black");
 
-generate_docs_all();
-
-console.log();
+console.log(op.call([10, 10]));

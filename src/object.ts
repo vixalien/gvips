@@ -1,6 +1,7 @@
 import GObject from "gi://GObject";
 import Vips from "gi://Vips";
 import GvipsExt from "gi://GvipsExt";
+import { gvalue_set } from "./value";
 
 export const pspec_class_cache = new Map<string, GObject.ParamSpec>();
 export const pspec_cache = new Map<Vips.Object, typeof pspec_class_cache>();
@@ -37,7 +38,7 @@ export function get_typeof(obj: Vips.Object, name: string) {
   const pspec = get_pspec(obj, name);
 
   if (!pspec) {
-    return 0;
+    throw new Error("");
   }
 
   return pspec.value_type;
@@ -54,4 +55,30 @@ export function get_blurb(obj: Vips.Object, name: string) {
   }
 
   return pspec.get_blurb();
+}
+
+export function vips_object_get(obj: Vips.Object, name: string) {
+  const pspec = get_pspec(obj, name);
+
+  if (!pspec) {
+    throw new Error("Property not found");
+  }
+
+  const gtype = pspec.value_type;
+
+  /// @ts-ignore - no need for copy
+  const gvalue = new GObject.Value();
+  gvalue.init(gtype);
+  /// @ts-ignore - wrong types, again
+  obj.get_property(name, gvalue);
+}
+
+export function vips_object_set(obj: Vips.Object, name: string, value: any) {
+  const gtype = get_typeof(obj, name);
+
+  /// @ts-ignore - no need for copy
+  const gvalue = new GObject.Value();
+  gvalue.init(gtype);
+  gvalue_set(gvalue, value);
+  obj.set_property(name, gvalue);
 }
