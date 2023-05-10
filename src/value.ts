@@ -120,3 +120,29 @@ export function gvalue_get(gvalue: GObject.Value) {
     throw new Error(`Unsupported gtype for get ${GObject.type_name(gtype)}`);
   }
 }
+
+export function gvalue_to_enum(gtype: GObject.GType, value: number | string) {
+  let enum_value;
+
+  if (typeof value === "string") {
+    enum_value = GvipsExt.enum_from_nick("node-vips", gtype, value);
+
+    if (enum_value === -1) {
+      throw new Error(`Invalid enum value ${value}`);
+    }
+  } else {
+    enum_value = value;
+  }
+
+  return enum_value;
+}
+
+export function gvalue_from_enum(gtype: GObject.GType, enum_value: number) {
+  const value = GvipsExt.enum_nick(gtype, enum_value);
+
+  if (!value) {
+    throw new Error(`value not in enum`);
+  }
+
+  return value;
+}

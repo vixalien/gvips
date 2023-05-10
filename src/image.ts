@@ -83,8 +83,8 @@ export function vips_image_write_to_file(
 
   const op = Introspect.get(save);
 
-  return op.call([image, path, {
+  return op.call(image, path, {
     ...options,
     string_options,
-  }]);
+  });
 }

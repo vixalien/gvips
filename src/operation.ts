@@ -205,7 +205,7 @@ export class Introspect {
     }
   }
 
-  call(__args: any[] | [...any[], Record<string, string>][]) {
+  call(...__args: any[] | [...any[], Record<string, string>][]) {
     const op = Vips.Operation.new(this.name);
 
     const options = typeof __args[__args.length - 1] === "object"
@@ -330,4 +330,8 @@ export class Introspect {
 
     return this.introspect_cache.get(name)!;
   }
+}
+
+export function call(op: string, ...args: any[]) {
+  return Introspect.get(op).call(args);
 }

@@ -57,3 +57,13 @@ GType gvips_ext_value_get_type(GValue *value)
 {
   return G_VALUE_TYPE(value);
 }
+
+int gvips_ext_enum_from_nick(const char *domain, GType type, const char *str)
+{
+  return vips_enum_from_nick(domain, type, str);
+}
+
+const char *gvips_ext_enum_nick(GType enm, int value)
+{
+  return vips_enum_nick(enm, value);
+}

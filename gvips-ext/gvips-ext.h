@@ -37,4 +37,8 @@ void gvips_ext_object_args_map(VipsObject *object, GvipsExtArgsMapFunc fn);
 
 GType gvips_ext_value_get_type(GValue *value);
 
+int gvips_ext_enum_from_nick(const char *domain, GType type, const char *str);
+
+const char *gvips_ext_enum_nick(GType enm, int value);
+
 G_END_DECLS

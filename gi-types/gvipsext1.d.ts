@@ -7,6 +7,8 @@
 import * as GObject from "./gobject2";
 import * as Vips from "./vips8";
 
+export function enum_from_nick(domain: string, type: GObject.GType, str: string): number;
+export function enum_nick(enm: GObject.GType, value: number): string;
 export function object_args_map(object: Vips.Object, fn: ArgsMapFunc): void;
 export function object_get_argument(object: Vips.Object, name: string): ArgumentInfo | null;
 export function value_get_type(value: GObject.Value | any): GObject.GType;
