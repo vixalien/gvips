@@ -15,7 +15,12 @@ export function indent(string: string, n = 1) {
 export function generateDoc(nickname: string) {
   const intro = Introspect.get(nickname);
 
-  function object_string(params: string[], n = 1, optional = false) {
+  function object_string(
+    params: string[],
+    options: { n?: number; optional?: boolean; semicolon?: boolean } = {},
+  ) {
+    const { n = 1, optional = false, semicolon = false } = options;
+
     return params
       .map((x, i) => {
         const type = intro.details.get(x)?.type;
@@ -25,7 +30,7 @@ export function generateDoc(nickname: string) {
         return indent(
           `${_snake_case(x)}${optional ? "?" : ""}: ${
             gtype_to_typescript(type)
-          },`,
+          }${semicolon ? ";" : `,`}`,
           n,
         );
       })
@@ -79,7 +84,11 @@ ${intro.member_x ? "" : "static "}${js_name}(\n`;
     result += indent("options?: {");
     result += "\n";
 
-    result += object_string(intro.doc_optional_input, 2, true);
+    result += object_string(intro.doc_optional_input, {
+      n: 2,
+      optional: true,
+      semicolon: true,
+    });
 
     result += indent("\n}");
   }
@@ -100,7 +109,11 @@ ${intro.member_x ? "" : "static "}${js_name}(\n`;
       result += indent("optional_output?: {");
       result += "\n";
 
-      result += object_string(intro.optional_output, 2, true);
+      result += object_string(intro.optional_output, {
+        n: 2,
+        optional: true,
+        semicolon: true,
+      });
 
       result += indent("\n}");
       result += "\n";
@@ -117,10 +130,10 @@ ${intro.member_x ? "" : "static "}${js_name}(\n`;
   return result;
 }
 
-export function generateDocs() {
+export function generateDocs(vips_type = "gi-types/vips8") {
   const header = `// this file is generated automatically -- do not edit!
 
-import Vips from "gi://Vips";
+import * as Vips from "${vips_type}";
 
 export class Image extends Vips.Image {
 `;

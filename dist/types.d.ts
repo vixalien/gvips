@@ -1,6 +1,6 @@
 // this file is generated automatically -- do not edit!
 
-import Vips from "gi://Vips";
+import * as Vips from "gi-types/vips8";
 
 export class Image extends Vips.Image {
   /**
@@ -14,14 +14,14 @@ export class Image extends Vips.Image {
   static system(
     cmd_format: string,
     options?: {
-      in?: Vips.Image[],
-      out_format?: string,
-      in_format?: string,  
+      in?: Vips.Image[];
+      out_format?: string;
+      in_format?: string;  
     }
   ): [
     optional_output?: {
-      out?: Vips.Image,
-      log?: string,  
+      out?: Vips.Image;
+      log?: string;  
     }
   ]
 
@@ -109,8 +109,8 @@ export class Image extends Vips.Image {
     x: number,
     y: number,
     options?: {
-      expand?: boolean,
-      background?: number[],  
+      expand?: boolean;
+      background?: number[];  
     }
   ): Vips.Image
 
@@ -130,10 +130,10 @@ export class Image extends Vips.Image {
     in2: Vips.Image,
     direction: Vips.Direction,
     options?: {
-      expand?: boolean,
-      shim?: number,
-      background?: number[],
-      align?: Vips.Align,  
+      expand?: boolean;
+      shim?: number;
+      background?: number[];
+      align?: Vips.Align;  
     }
   ): Vips.Image
 
@@ -182,13 +182,13 @@ export class Image extends Vips.Image {
     width: number,
     height: number,
     options?: {
-      interesting?: Vips.Interesting,  
+      interesting?: Vips.Interesting;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      attention_x?: number,
-      attention_y?: number,  
+      attention_x?: number;
+      attention_y?: number;  
     }
   ]
 
@@ -217,7 +217,7 @@ export class Image extends Vips.Image {
     xfac: number,
     yfac: number,
     options?: {
-      point?: boolean,  
+      point?: boolean;  
     }
   ): Vips.Image
 
@@ -237,10 +237,10 @@ export class Image extends Vips.Image {
     overlay: Vips.Image,
     mode: Vips.BlendMode,
     options?: {
-      x?: number,
-      y?: number,
-      compositing_space?: Vips.Interpretation,
-      premultiplied?: boolean,  
+      x?: number;
+      y?: number;
+      compositing_space?: Vips.Interpretation;
+      premultiplied?: boolean;  
     }
   ): Vips.Image
 
@@ -255,7 +255,7 @@ export class Image extends Vips.Image {
     width: number,
     height: number,
     options?: {
-      bands?: number,  
+      bands?: number;  
     }
   ): Vips.Image
 
@@ -272,9 +272,9 @@ export class Image extends Vips.Image {
     width: number,
     height: number,
     options?: {
-      sigma?: number,
-      mean?: number,
-      seed?: number,  
+      sigma?: number;
+      mean?: number;
+      seed?: number;  
     }
   ): Vips.Image
 
@@ -291,9 +291,9 @@ export class Image extends Vips.Image {
     width: number,
     height: number,
     options?: {
-      csize?: number,
-      dsize?: number,
-      esize?: number,  
+      csize?: number;
+      dsize?: number;
+      esize?: number;  
     }
   ): Vips.Image
 
@@ -309,8 +309,8 @@ export class Image extends Vips.Image {
     sigma: number,
     min_ampl: number,
     options?: {
-      separable?: boolean,
-      precision?: Vips.Precision,  
+      separable?: boolean;
+      precision?: Vips.Precision;  
     }
   ): Vips.Image
 
@@ -326,8 +326,8 @@ export class Image extends Vips.Image {
     sigma: number,
     min_ampl: number,
     options?: {
-      separable?: boolean,
-      precision?: Vips.Precision,  
+      separable?: boolean;
+      precision?: Vips.Precision;  
     }
   ): Vips.Image
 
@@ -349,21 +349,21 @@ export class Image extends Vips.Image {
   static text(
     text: string,
     options?: {
-      font?: string,
-      width?: number,
-      height?: number,
-      align?: Vips.Align,
-      justify?: boolean,
-      dpi?: number,
-      spacing?: number,
-      fontfile?: string,
-      rgba?: boolean,
-      wrap?: Vips.TextWrap,  
+      font?: string;
+      width?: number;
+      height?: number;
+      align?: Vips.Align;
+      justify?: boolean;
+      dpi?: number;
+      spacing?: number;
+      fontfile?: string;
+      rgba?: boolean;
+      wrap?: Vips.TextWrap;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      autofit_dpi?: number,  
+      autofit_dpi?: number;  
     }
   ]
 
@@ -379,8 +379,8 @@ export class Image extends Vips.Image {
     width: number,
     height: number,
     options?: {
-      uchar?: boolean,
-      factor?: number,  
+      uchar?: boolean;
+      factor?: number;  
     }
   ): Vips.Image
 
@@ -395,7 +395,7 @@ export class Image extends Vips.Image {
     width: number,
     height: number,
     options?: {
-      uchar?: boolean,  
+      uchar?: boolean;  
     }
   ): Vips.Image
 
@@ -410,7 +410,7 @@ export class Image extends Vips.Image {
     width: number,
     height: number,
     options?: {
-      uchar?: boolean,  
+      uchar?: boolean;  
     }
   ): Vips.Image
 
@@ -427,9 +427,9 @@ export class Image extends Vips.Image {
     width: number,
     height: number,
     options?: {
-      uchar?: boolean,
-      hfreq?: number,
-      vfreq?: number,  
+      uchar?: boolean;
+      hfreq?: number;
+      vfreq?: number;  
     }
   ): Vips.Image
 
@@ -449,10 +449,10 @@ export class Image extends Vips.Image {
     height: number,
     frequency_cutoff: number,
     options?: {
-      uchar?: boolean,
-      nodc?: boolean,
-      reject?: boolean,
-      optical?: boolean,  
+      uchar?: boolean;
+      nodc?: boolean;
+      reject?: boolean;
+      optical?: boolean;  
     }
   ): Vips.Image
 
@@ -474,10 +474,10 @@ export class Image extends Vips.Image {
     frequency_cutoff: number,
     ringwidth: number,
     options?: {
-      uchar?: boolean,
-      nodc?: boolean,
-      reject?: boolean,
-      optical?: boolean,  
+      uchar?: boolean;
+      nodc?: boolean;
+      reject?: boolean;
+      optical?: boolean;  
     }
   ): Vips.Image
 
@@ -501,10 +501,10 @@ export class Image extends Vips.Image {
     frequency_cutoff_y: number,
     radius: number,
     options?: {
-      uchar?: boolean,
-      nodc?: boolean,
-      reject?: boolean,
-      optical?: boolean,  
+      uchar?: boolean;
+      nodc?: boolean;
+      reject?: boolean;
+      optical?: boolean;  
     }
   ): Vips.Image
 
@@ -528,10 +528,10 @@ export class Image extends Vips.Image {
     frequency_cutoff: number,
     amplitude_cutoff: number,
     options?: {
-      uchar?: boolean,
-      nodc?: boolean,
-      reject?: boolean,
-      optical?: boolean,  
+      uchar?: boolean;
+      nodc?: boolean;
+      reject?: boolean;
+      optical?: boolean;  
     }
   ): Vips.Image
 
@@ -557,10 +557,10 @@ export class Image extends Vips.Image {
     amplitude_cutoff: number,
     ringwidth: number,
     options?: {
-      uchar?: boolean,
-      nodc?: boolean,
-      reject?: boolean,
-      optical?: boolean,  
+      uchar?: boolean;
+      nodc?: boolean;
+      reject?: boolean;
+      optical?: boolean;  
     }
   ): Vips.Image
 
@@ -588,10 +588,10 @@ export class Image extends Vips.Image {
     radius: number,
     amplitude_cutoff: number,
     options?: {
-      uchar?: boolean,
-      nodc?: boolean,
-      reject?: boolean,
-      optical?: boolean,  
+      uchar?: boolean;
+      nodc?: boolean;
+      reject?: boolean;
+      optical?: boolean;  
     }
   ): Vips.Image
 
@@ -613,10 +613,10 @@ export class Image extends Vips.Image {
     frequency_cutoff: number,
     amplitude_cutoff: number,
     options?: {
-      uchar?: boolean,
-      nodc?: boolean,
-      reject?: boolean,
-      optical?: boolean,  
+      uchar?: boolean;
+      nodc?: boolean;
+      reject?: boolean;
+      optical?: boolean;  
     }
   ): Vips.Image
 
@@ -640,10 +640,10 @@ export class Image extends Vips.Image {
     amplitude_cutoff: number,
     ringwidth: number,
     options?: {
-      uchar?: boolean,
-      nodc?: boolean,
-      reject?: boolean,
-      optical?: boolean,  
+      uchar?: boolean;
+      nodc?: boolean;
+      reject?: boolean;
+      optical?: boolean;  
     }
   ): Vips.Image
 
@@ -669,10 +669,10 @@ export class Image extends Vips.Image {
     radius: number,
     amplitude_cutoff: number,
     options?: {
-      uchar?: boolean,
-      nodc?: boolean,
-      reject?: boolean,
-      optical?: boolean,  
+      uchar?: boolean;
+      nodc?: boolean;
+      reject?: boolean;
+      optical?: boolean;  
     }
   ): Vips.Image
 
@@ -692,10 +692,10 @@ export class Image extends Vips.Image {
     height: number,
     fractal_dimension: number,
     options?: {
-      uchar?: boolean,
-      nodc?: boolean,
-      reject?: boolean,
-      optical?: boolean,  
+      uchar?: boolean;
+      nodc?: boolean;
+      reject?: boolean;
+      optical?: boolean;  
     }
   ): Vips.Image
 
@@ -716,16 +716,16 @@ export class Image extends Vips.Image {
    */
   static tonelut(
     options?: {
-      in_max?: number,
-      out_max?: number,
-      Lb?: number,
-      Lw?: number,
-      Ps?: number,
-      Pm?: number,
-      Ph?: number,
-      S?: number,
-      M?: number,
-      H?: number,  
+      in_max?: number;
+      out_max?: number;
+      Lb?: number;
+      Lw?: number;
+      Ps?: number;
+      Pm?: number;
+      Ph?: number;
+      S?: number;
+      M?: number;
+      H?: number;  
     }
   ): Vips.Image
 
@@ -739,9 +739,9 @@ export class Image extends Vips.Image {
    */
   static identity(
     options?: {
-      bands?: number,
-      ushort?: boolean,
-      size?: number,  
+      bands?: number;
+      ushort?: boolean;
+      size?: number;  
     }
   ): Vips.Image
 
@@ -769,8 +769,8 @@ export class Image extends Vips.Image {
     width: number,
     height: number,
     options?: {
-      cell_size?: number,
-      seed?: number,  
+      cell_size?: number;
+      seed?: number;  
     }
   ): Vips.Image
 
@@ -787,9 +787,9 @@ export class Image extends Vips.Image {
     width: number,
     height: number,
     options?: {
-      cell_size?: number,
-      uchar?: boolean,
-      seed?: number,  
+      cell_size?: number;
+      uchar?: boolean;
+      seed?: number;  
     }
   ): Vips.Image
 
@@ -816,18 +816,18 @@ export class Image extends Vips.Image {
   static csvload(
     filename: string,
     options?: {
-      skip?: number,
-      lines?: number,
-      whitespace?: string,
-      separator?: string,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      skip?: number;
+      lines?: number;
+      whitespace?: string;
+      separator?: string;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -846,18 +846,18 @@ export class Image extends Vips.Image {
   static csvload_source(
     source: Vips.Source,
     options?: {
-      skip?: number,
-      lines?: number,
-      whitespace?: string,
-      separator?: string,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      skip?: number;
+      lines?: number;
+      whitespace?: string;
+      separator?: string;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -872,14 +872,14 @@ export class Image extends Vips.Image {
   static matrixload(
     filename: string,
     options?: {
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -894,14 +894,14 @@ export class Image extends Vips.Image {
   static matrixload_source(
     source: Vips.Source,
     options?: {
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -925,17 +925,17 @@ export class Image extends Vips.Image {
     height: number,
     bands: number,
     options?: {
-      offset?: number,
-      format?: Vips.BandFormat,
-      interpretation?: Vips.Interpretation,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      offset?: number;
+      format?: Vips.BandFormat;
+      interpretation?: Vips.Interpretation;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -950,14 +950,14 @@ export class Image extends Vips.Image {
   static vipsload(
     filename: string,
     options?: {
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -972,14 +972,14 @@ export class Image extends Vips.Image {
   static vipsload_source(
     source: Vips.Source,
     options?: {
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -994,14 +994,14 @@ export class Image extends Vips.Image {
   static analyzeload(
     filename: string,
     options?: {
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1016,14 +1016,14 @@ export class Image extends Vips.Image {
   static ppmload(
     filename: string,
     options?: {
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1038,14 +1038,14 @@ export class Image extends Vips.Image {
   static ppmload_source(
     source: Vips.Source,
     options?: {
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1060,14 +1060,14 @@ export class Image extends Vips.Image {
   static radload(
     filename: string,
     options?: {
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1082,14 +1082,14 @@ export class Image extends Vips.Image {
   static radload_buffer(
     buffer: Vips.Blob,
     options?: {
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1104,14 +1104,14 @@ export class Image extends Vips.Image {
   static radload_source(
     source: Vips.Source,
     options?: {
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1129,17 +1129,17 @@ export class Image extends Vips.Image {
   static svgload(
     filename: string,
     options?: {
-      dpi?: number,
-      scale?: number,
-      unlimited?: boolean,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      dpi?: number;
+      scale?: number;
+      unlimited?: boolean;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1157,17 +1157,17 @@ export class Image extends Vips.Image {
   static svgload_buffer(
     buffer: Vips.Blob,
     options?: {
-      dpi?: number,
-      scale?: number,
-      unlimited?: boolean,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      dpi?: number;
+      scale?: number;
+      unlimited?: boolean;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1185,17 +1185,17 @@ export class Image extends Vips.Image {
   static svgload_source(
     source: Vips.Source,
     options?: {
-      dpi?: number,
-      scale?: number,
-      unlimited?: boolean,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      dpi?: number;
+      scale?: number;
+      unlimited?: boolean;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1211,15 +1211,15 @@ export class Image extends Vips.Image {
   static jp2kload(
     filename: string,
     options?: {
-      page?: number,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      page?: number;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1235,15 +1235,15 @@ export class Image extends Vips.Image {
   static jp2kload_buffer(
     buffer: Vips.Blob,
     options?: {
-      page?: number,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      page?: number;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1259,15 +1259,15 @@ export class Image extends Vips.Image {
   static jp2kload_source(
     source: Vips.Source,
     options?: {
-      page?: number,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      page?: number;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1284,16 +1284,16 @@ export class Image extends Vips.Image {
   static gifload(
     filename: string,
     options?: {
-      n?: number,
-      page?: number,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      n?: number;
+      page?: number;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1310,16 +1310,16 @@ export class Image extends Vips.Image {
   static gifload_buffer(
     buffer: Vips.Blob,
     options?: {
-      n?: number,
-      page?: number,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      n?: number;
+      page?: number;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1336,16 +1336,16 @@ export class Image extends Vips.Image {
   static gifload_source(
     source: Vips.Source,
     options?: {
-      n?: number,
-      page?: number,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      n?: number;
+      page?: number;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1361,15 +1361,15 @@ export class Image extends Vips.Image {
   static pngload(
     filename: string,
     options?: {
-      unlimited?: boolean,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      unlimited?: boolean;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1385,15 +1385,15 @@ export class Image extends Vips.Image {
   static pngload_buffer(
     buffer: Vips.Blob,
     options?: {
-      unlimited?: boolean,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      unlimited?: boolean;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1409,15 +1409,15 @@ export class Image extends Vips.Image {
   static pngload_source(
     source: Vips.Source,
     options?: {
-      unlimited?: boolean,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      unlimited?: boolean;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1435,17 +1435,17 @@ export class Image extends Vips.Image {
   static jpegload(
     filename: string,
     options?: {
-      shrink?: number,
-      autorotate?: boolean,
-      unlimited?: boolean,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      shrink?: number;
+      autorotate?: boolean;
+      unlimited?: boolean;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1463,17 +1463,17 @@ export class Image extends Vips.Image {
   static jpegload_buffer(
     buffer: Vips.Blob,
     options?: {
-      shrink?: number,
-      autorotate?: boolean,
-      unlimited?: boolean,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      shrink?: number;
+      autorotate?: boolean;
+      unlimited?: boolean;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1491,17 +1491,17 @@ export class Image extends Vips.Image {
   static jpegload_source(
     source: Vips.Source,
     options?: {
-      shrink?: number,
-      autorotate?: boolean,
-      unlimited?: boolean,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      shrink?: number;
+      autorotate?: boolean;
+      unlimited?: boolean;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1519,17 +1519,17 @@ export class Image extends Vips.Image {
   static webpload(
     filename: string,
     options?: {
-      page?: number,
-      n?: number,
-      scale?: number,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      page?: number;
+      n?: number;
+      scale?: number;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1547,17 +1547,17 @@ export class Image extends Vips.Image {
   static webpload_buffer(
     buffer: Vips.Blob,
     options?: {
-      page?: number,
-      n?: number,
-      scale?: number,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      page?: number;
+      n?: number;
+      scale?: number;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1575,17 +1575,17 @@ export class Image extends Vips.Image {
   static webpload_source(
     source: Vips.Source,
     options?: {
-      page?: number,
-      n?: number,
-      scale?: number,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      page?: number;
+      n?: number;
+      scale?: number;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1604,18 +1604,18 @@ export class Image extends Vips.Image {
   static tiffload(
     filename: string,
     options?: {
-      page?: number,
-      subifd?: number,
-      n?: number,
-      autorotate?: boolean,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      page?: number;
+      subifd?: number;
+      n?: number;
+      autorotate?: boolean;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1634,18 +1634,18 @@ export class Image extends Vips.Image {
   static tiffload_buffer(
     buffer: Vips.Blob,
     options?: {
-      page?: number,
-      subifd?: number,
-      n?: number,
-      autorotate?: boolean,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      page?: number;
+      subifd?: number;
+      n?: number;
+      autorotate?: boolean;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1664,18 +1664,18 @@ export class Image extends Vips.Image {
   static tiffload_source(
     source: Vips.Source,
     options?: {
-      page?: number,
-      subifd?: number,
-      n?: number,
-      autorotate?: boolean,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      page?: number;
+      subifd?: number;
+      n?: number;
+      autorotate?: boolean;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1690,14 +1690,14 @@ export class Image extends Vips.Image {
   static fitsload(
     filename: string,
     options?: {
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1712,14 +1712,14 @@ export class Image extends Vips.Image {
   static fitsload_source(
     source: Vips.Source,
     options?: {
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1734,14 +1734,14 @@ export class Image extends Vips.Image {
   static openexrload(
     filename: string,
     options?: {
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1759,17 +1759,17 @@ export class Image extends Vips.Image {
   static magickload(
     filename: string,
     options?: {
-      density?: string,
-      page?: number,
-      n?: number,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      density?: string;
+      page?: number;
+      n?: number;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1787,17 +1787,17 @@ export class Image extends Vips.Image {
   static magickload_buffer(
     buffer: Vips.Blob,
     options?: {
-      density?: string,
-      page?: number,
-      n?: number,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      density?: string;
+      page?: number;
+      n?: number;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1816,18 +1816,18 @@ export class Image extends Vips.Image {
   static heifload(
     filename: string,
     options?: {
-      page?: number,
-      n?: number,
-      thumbnail?: boolean,
-      unlimited?: boolean,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      page?: number;
+      n?: number;
+      thumbnail?: boolean;
+      unlimited?: boolean;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1846,18 +1846,18 @@ export class Image extends Vips.Image {
   static heifload_buffer(
     buffer: Vips.Blob,
     options?: {
-      page?: number,
-      n?: number,
-      thumbnail?: boolean,
-      unlimited?: boolean,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      page?: number;
+      n?: number;
+      thumbnail?: boolean;
+      unlimited?: boolean;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1876,18 +1876,18 @@ export class Image extends Vips.Image {
   static heifload_source(
     source: Vips.Source,
     options?: {
-      page?: number,
-      n?: number,
-      thumbnail?: boolean,
-      unlimited?: boolean,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      page?: number;
+      n?: number;
+      thumbnail?: boolean;
+      unlimited?: boolean;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1908,20 +1908,20 @@ export class Image extends Vips.Image {
   static pdfload(
     filename: string,
     options?: {
-      page?: number,
-      n?: number,
-      dpi?: number,
-      scale?: number,
-      background?: number[],
-      password?: string,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      page?: number;
+      n?: number;
+      dpi?: number;
+      scale?: number;
+      background?: number[];
+      password?: string;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1942,20 +1942,20 @@ export class Image extends Vips.Image {
   static pdfload_buffer(
     buffer: Vips.Blob,
     options?: {
-      page?: number,
-      n?: number,
-      dpi?: number,
-      scale?: number,
-      background?: number[],
-      password?: string,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      page?: number;
+      n?: number;
+      dpi?: number;
+      scale?: number;
+      background?: number[];
+      password?: string;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -1976,20 +1976,20 @@ export class Image extends Vips.Image {
   static pdfload_source(
     source: Vips.Source,
     options?: {
-      page?: number,
-      n?: number,
-      dpi?: number,
-      scale?: number,
-      background?: number[],
-      password?: string,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      page?: number;
+      n?: number;
+      dpi?: number;
+      scale?: number;
+      background?: number[];
+      password?: string;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -2004,14 +2004,14 @@ export class Image extends Vips.Image {
   static jxlload(
     filename: string,
     options?: {
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -2026,14 +2026,14 @@ export class Image extends Vips.Image {
   static jxlload_buffer(
     buffer: Vips.Blob,
     options?: {
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -2048,14 +2048,14 @@ export class Image extends Vips.Image {
   static jxlload_source(
     source: Vips.Source,
     options?: {
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -2075,19 +2075,19 @@ export class Image extends Vips.Image {
   static openslideload(
     filename: string,
     options?: {
-      level?: number,
-      autocrop?: boolean,
-      associated?: string,
-      attach_associated?: boolean,
-      rgb?: boolean,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      level?: number;
+      autocrop?: boolean;
+      associated?: string;
+      attach_associated?: boolean;
+      rgb?: boolean;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -2107,19 +2107,19 @@ export class Image extends Vips.Image {
   static openslideload_source(
     source: Vips.Source,
     options?: {
-      level?: number,
-      autocrop?: boolean,
-      associated?: string,
-      attach_associated?: boolean,
-      rgb?: boolean,
-      memory?: boolean,
-      access?: Vips.Access,
-      fail_on?: Vips.FailOn,  
+      level?: number;
+      autocrop?: boolean;
+      associated?: string;
+      attach_associated?: boolean;
+      rgb?: boolean;
+      memory?: boolean;
+      access?: Vips.Access;
+      fail_on?: Vips.FailOn;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      flags?: Vips.ForeignFlags,  
+      flags?: Vips.ForeignFlags;  
     }
   ]
 
@@ -2142,15 +2142,15 @@ export class Image extends Vips.Image {
     filename: string,
     width: number,
     options?: {
-      height?: number,
-      size?: Vips.Size,
-      no_rotate?: boolean,
-      crop?: Vips.Interesting,
-      linear?: boolean,
-      import_profile?: string,
-      export_profile?: string,
-      intent?: Vips.Intent,
-      fail_on?: Vips.FailOn,  
+      height?: number;
+      size?: Vips.Size;
+      no_rotate?: boolean;
+      crop?: Vips.Interesting;
+      linear?: boolean;
+      import_profile?: string;
+      export_profile?: string;
+      intent?: Vips.Intent;
+      fail_on?: Vips.FailOn;  
     }
   ): Vips.Image
 
@@ -2174,16 +2174,16 @@ export class Image extends Vips.Image {
     buffer: Vips.Blob,
     width: number,
     options?: {
-      option_string?: string,
-      height?: number,
-      size?: Vips.Size,
-      no_rotate?: boolean,
-      crop?: Vips.Interesting,
-      linear?: boolean,
-      import_profile?: string,
-      export_profile?: string,
-      intent?: Vips.Intent,
-      fail_on?: Vips.FailOn,  
+      option_string?: string;
+      height?: number;
+      size?: Vips.Size;
+      no_rotate?: boolean;
+      crop?: Vips.Interesting;
+      linear?: boolean;
+      import_profile?: string;
+      export_profile?: string;
+      intent?: Vips.Intent;
+      fail_on?: Vips.FailOn;  
     }
   ): Vips.Image
 
@@ -2207,16 +2207,16 @@ export class Image extends Vips.Image {
     source: Vips.Source,
     width: number,
     options?: {
-      option_string?: string,
-      height?: number,
-      size?: Vips.Size,
-      no_rotate?: boolean,
-      crop?: Vips.Interesting,
-      linear?: boolean,
-      import_profile?: string,
-      export_profile?: string,
-      intent?: Vips.Intent,
-      fail_on?: Vips.FailOn,  
+      option_string?: string;
+      height?: number;
+      size?: Vips.Size;
+      no_rotate?: boolean;
+      crop?: Vips.Interesting;
+      linear?: boolean;
+      import_profile?: string;
+      export_profile?: string;
+      intent?: Vips.Intent;
+      fail_on?: Vips.FailOn;  
     }
   ): Vips.Image
 
@@ -2287,7 +2287,7 @@ export class Image extends Vips.Image {
     width: number,
     height: number,
     options?: {
-      fill?: boolean,  
+      fill?: boolean;  
     }
   ): Vips.Image
 
@@ -2342,7 +2342,7 @@ export class Image extends Vips.Image {
     cy: number,
     radius: number,
     options?: {
-      fill?: boolean,  
+      fill?: boolean;  
     }
   ): Vips.Image
 
@@ -2362,16 +2362,16 @@ export class Image extends Vips.Image {
     x: number,
     y: number,
     options?: {
-      test?: Vips.Image,
-      equal?: boolean,  
+      test?: Vips.Image;
+      equal?: boolean;  
     }
   ): [
     image: Vips.Image,
     optional_output?: {
-      left?: number,
-      top?: number,
-      width?: number,
-      height?: number,  
+      left?: number;
+      top?: number;
+      width?: number;
+      height?: number;  
     }
   ]
 
@@ -2390,7 +2390,7 @@ export class Image extends Vips.Image {
     x: number,
     y: number,
     options?: {
-      mode?: Vips.CombineMode,  
+      mode?: Vips.CombineMode;  
     }
   ): Vips.Image
 
@@ -2427,7 +2427,7 @@ export class Image extends Vips.Image {
     dx: number,
     dy: number,
     options?: {
-      mblend?: number,  
+      mblend?: number;  
     }
   ): Vips.Image
 
@@ -2455,20 +2455,20 @@ export class Image extends Vips.Image {
     xsec: number,
     ysec: number,
     options?: {
-      hwindow?: number,
-      harea?: number,
-      mblend?: number,
-      bandno?: number,  
+      hwindow?: number;
+      harea?: number;
+      mblend?: number;
+      bandno?: number;  
     }
   ): [
     out: Vips.Image,
     optional_output?: {
-      dx0?: number,
-      dy0?: number,
-      scale1?: number,
-      angle1?: number,
-      dy1?: number,
-      dx1?: number,  
+      dx0?: number;
+      dy0?: number;
+      scale1?: number;
+      angle1?: number;
+      dy1?: number;
+      dx1?: number;  
     }
   ]
 
@@ -2505,11 +2505,11 @@ export class Image extends Vips.Image {
     xs2: number,
     ys2: number,
     options?: {
-      hwindow?: number,
-      harea?: number,
-      search?: boolean,
-      interpolate?: Vips.Interpolate,
-      mblend?: number,  
+      hwindow?: number;
+      harea?: number;
+      search?: boolean;
+      interpolate?: Vips.Interpolate;
+      mblend?: number;  
     }
   ): Vips.Image
 
@@ -2543,10 +2543,10 @@ export class Image extends Vips.Image {
     xs2: number,
     ys2: number,
     options?: {
-      hwindow?: number,
-      harea?: number,
-      search?: boolean,
-      interpolate?: Vips.Interpolate,  
+      hwindow?: number;
+      harea?: number;
+      search?: boolean;
+      interpolate?: Vips.Interpolate;  
     }
   ): Vips.Image
 }

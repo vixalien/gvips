@@ -279,13 +279,15 @@ export class Introspect {
         console.warn(`argument ${name} is deprecated for ${this.name}`);
       }
 
-      vips_operation_set(
-        op,
-        name,
-        details.flags,
-        match_image,
-        value,
-      );
+      if (this.optional_input.includes(name)) {
+        vips_operation_set(
+          op,
+          name,
+          details.flags,
+          match_image,
+          value,
+        );
+      }
     }
 
     // build operation

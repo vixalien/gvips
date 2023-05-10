@@ -1,8 +1,13 @@
+declare module "gi://VipsMerged" {
+  export * from "gi-types/vips8";
+  export { Image } from "dist/types";
+}
+
 declare module "gi://Vips" {
-  export * as default from "gi-types/vips8";
+  export * as default from "gi://VipsMerged";
 }
 declare module "gi://Vips?version=8" {
-  export * as default from "gi-types/vips8";
+  export * as default from "gi://VipsMerged";
 }
 
 declare module "gi://GObject" {

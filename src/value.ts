@@ -106,7 +106,7 @@ export function gvalue_get(gvalue: GObject.Value) {
     return Vips.value_get_ref_string(gvalue)[0];
   } else if (gtype === types.image) {
     const object = gvalue.get_object();
-    object.ref();
+    if (object) object.ref();
     return object;
   } else if (gtype === types.array_int) {
     return Vips.value_get_array_int(gvalue);

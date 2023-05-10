@@ -1,20 +1,3 @@
-// {
-//   "compilerOptions": {
-//     "lib": [
-//       "ESNext"
-//     ],
-//     "module": "esnext",
-//     "target": "ES2020",
-//     "moduleResolution": "node",
-//     "strict": true,
-//     "downlevelIteration": true,
-//     "skipLibCheck": true,
-//     "forceConsistentCasingInFileNames": true,
-//     "allowJs": true,
-//     "types": [
-//     ]
-//   }
-// }
 {
   "compilerOptions": {
     "experimentalDecorators": true,
@@ -34,7 +17,6 @@
       "ES2020",
       "DOM"
     ],
-    
     // We use esbuild to build
     "noEmit": true,
   },
