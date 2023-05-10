@@ -5,7 +5,8 @@ G_DEFINE_BOXED_TYPE(GvipsExtArgumentInfo, gvips_ext_argument_info,
                     gvips_ext_argument_info_copy,
                     gvips_ext_argument_info_free);
 
-GvipsExtArgumentInfo *gvips_ext_argument_info_copy(GvipsExtArgumentInfo *r) {
+GvipsExtArgumentInfo *gvips_ext_argument_info_copy(GvipsExtArgumentInfo *r)
+{
   GvipsExtArgumentInfo *copy = g_new(GvipsExtArgumentInfo, 1);
 
   copy->pspec = r->pspec;
@@ -15,7 +16,8 @@ GvipsExtArgumentInfo *gvips_ext_argument_info_copy(GvipsExtArgumentInfo *r) {
   return copy;
 }
 
-void gvips_ext_argument_info_free(GvipsExtArgumentInfo *r) {
+void gvips_ext_argument_info_free(GvipsExtArgumentInfo *r)
+{
   g_free(r);
 }
 
@@ -51,11 +53,7 @@ void gvips_ext_object_args_map(VipsObject *object, GvipsExtArgsMapFunc fn)
   g_free(flags);
 }
 
-void *gvips_ext_type_map(GType base, VipsTypeMap2Fn fn, void *a, void *b)
+GType gvips_ext_value_get_type(GValue *value)
 {
-  return vips_type_map(base, fn, a, b);
-}
-
-GType gvips_ext_value_get_type(GValue* value) {
   return G_VALUE_TYPE(value);
 }
