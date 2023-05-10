@@ -333,5 +333,5 @@ export class Introspect {
 }
 
 export function call(op: string, ...args: any[]) {
-  return Introspect.get(op).call(args);
+  return Introspect.get(op).call(...args);
 }

@@ -5,11 +5,11 @@ import { initWrappers } from "src/wrapper";
 
 initWrappers();
 
-const copy = Vips.Image.black(100, 100);
+const image = Vips.Image.new_from_file_RW(
+  "/home/alien/Pictures/Exports/6 April 2023/sdffff.jpg",
+) as any;
 
-// const image = Vips.Image.new_from_file_RW(
-//   "/home/alien/Pictures/Exports/6 April 2023/sdffff.jpg",
-// ) as any;
+const copy = image.add([0,100,0]) as Vips.Image;
 
 // const copy = image.colourspace(Vips.Interpretation.B_W) as Vips.Image;
 
