@@ -25,3 +25,10 @@ declare module "gi://GvipsExt" {
 declare module "gi://GvipsExt?version=1" {
   export * as default from "gi-types/gvipsext1";
 }
+
+declare module "gi://Gio" {
+  export * as default from "gi-types/gio2";
+}
+declare module "gi://Gio?version=2" {
+  export * as default from "gi-types/gio2";
+}

@@ -37,13 +37,13 @@
     
     // We use esbuild to build
     "noEmit": true,
-    "skipLibCheck": true,
   },
   "include": [
     "lib/ambient.d.ts",
     "gi-types/gi.d.ts",
     "src/**/*.ts",
     "test/*.ts",
+    "dist/*.ts"
   ],
   "exclude": [
     "node_modules/@types/**",

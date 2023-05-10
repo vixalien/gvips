@@ -462,8 +462,8 @@ function initManualWrappers() {
   };
 }
 
-function _snake_case(name: string) {
-  return name.replace(/([A-Z])/g, "_$1").toLowerCase();
+export function _snake_case(name: string) {
+  return name.replace(/-/g, "_");
 }
 
 export function initWrapper(nickname: string) {
@@ -488,18 +488,18 @@ export function initWrapper(nickname: string) {
   }
 }
 
-function add_docs(gtype: GObject.GType) {
-  // various operators need hand-written bindings to be convenient to use
-  const banned = [
-    "bandrank",
-    "bandjoin",
-    "ifthenelse",
-    "add",
-    "subtract",
-    "multiply",
-    "divide",
-  ];
+// various operators need hand-written bindings to be convenient to use
+export const banned = [
+  "bandrank",
+  "bandjoin",
+  "ifthenelse",
+  "add",
+  "subtract",
+  "multiply",
+  "divide",
+];
 
+function add_docs(gtype: GObject.GType) {
   const nickname = Vips.nickname_find(gtype);
 
   if (banned.includes(nickname)) {

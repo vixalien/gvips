@@ -146,3 +146,36 @@ export function gvalue_from_enum(gtype: GObject.GType, enum_value: number) {
 
   return value;
 }
+
+const type_map = new Map<GObject.GType, string>([
+  [GObject.TYPE_BOOLEAN, "boolean"],
+  [GObject.TYPE_INT, "number"],
+  [GObject.TYPE_UINT64, "number"],
+  [GObject.TYPE_DOUBLE, "number"],
+  [GObject.TYPE_STRING, "string"],
+  [Vips.ArrayDouble.$gtype, "number[]"],
+  [Vips.ArrayInt.$gtype, "number[]"],
+  [Vips.ArrayImage.$gtype, "Vips.Image[]"],
+  [Vips.Blob.$gtype, "Vips.Blob"],
+]);
+
+export function pretty_case(string: string) {
+  return string.replace(/([a-z])([A-Z])/, "$1.$2");
+}
+
+export function gtype_to_typescript(type: GObject.GType) {
+  if (type_map.has(type)) {
+    return type_map.get(type);
+  }
+
+  const fundamental = GObject.type_fundamental(type);
+
+  switch (fundamental) {
+    case GObject.TYPE_ENUM:
+    case GObject.TYPE_FLAGS:
+    case GObject.TYPE_OBJECT:
+      return pretty_case(GObject.type_name(type) ?? "unknown");
+    default:
+      return `unknown ${GObject.type_name(type)}`;
+  }
+}

@@ -13,6 +13,10 @@ import { vips_image_imageize } from "./image";
 
 Vips.init("vips-test");
 
+function _kebab(name: string) {
+  return name.replace(/_/g, "-");
+}
+
 export interface ArgumentInfo {
   name: string;
   flags: Vips.ArgumentFlags;
@@ -143,6 +147,8 @@ export class Introspect {
         ((flags & Vips.ArgumentFlags.REQUIRED) != 0) &&
         ((flags & Vips.ArgumentFlags.DEPRECATED) == 0)
       ) {
+        if (name === "in") name = "input";
+
         this.required_input.push(name);
 
         // required inputs which we MODIFY are also required outputs
@@ -199,7 +205,7 @@ export class Introspect {
     // on
     if (!this.member_x) {
       this.method_args = this.required_input
-        .filter((name) => name === this.member_x);
+        .filter((name) => name !== this.member_x);
     } else {
       this.method_args = this.required_input;
     }
@@ -245,7 +251,7 @@ export class Introspect {
       const value = args[i];
       vips_operation_set(
         op,
-        name,
+        _kebab(name === "input" ? "in" : name),
         this.details.get(name)!.flags,
         match_image,
         value,

@@ -14,6 +14,7 @@
     "Vips": "8.0",
     "GObject": "2.0",
     "GLib": "2.0",
-    "GvipsExt": "1.0"
+    "GvipsExt": "1.0",
+    "Gio": "2.0"
   }
 }
