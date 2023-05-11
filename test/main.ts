@@ -7,24 +7,29 @@ import { vips_image_write_to_file } from "src/image";
 
 initWrappers();
 
-const path = Gio.File.new_for_path("dist/types.d.ts");
+// const path = Gio.File.new_for_path("dist/types.d.ts");
 
-path.replace_contents(
-  generateDocs(),
-  null,
-  false,
-  Gio.FileCreateFlags.NONE,
-  null,
-);
+// path.replace_contents(
+//   generateDocs(),
+//   null,
+//   false,
+//   Gio.FileCreateFlags.NONE,
+//   null,
+// );
 
-// const image = Vips.Image.new_from_file_RW(
-//   "/home/alien/Pictures/Exports/6 April 2023/sdffff.jpg",
-// ) as Vips.Image;
+const image = Vips.Image.new_from_file_RW(
+  "/home/alien/Pictures/Exports/6 April 2023/sdffff.jpg",
+) as Vips.Image;
 
-// console.log("width height", image.width, image.height);
+console.log("width height", image.width, image.height);
 
-// // const copy = image.smartcrop() as Vips.Image;
+const result = image.smartcrop(300, 300, {
+  interesting: Vips.Interesting.HIGH,
+  output: ["attention_x", "attention_y"],
+});
 
-// // const copy = op.call([image, Vips.Interpretation.B_W]) as Vips.Image;
+console.log("result", result);
 
-// console.log(vips_image_write_to_file(copy, "test.png"));
+// const copy = op.call([image, Vips.Interpretation.B_W]) as Vips.Image;
+
+console.log(vips_image_write_to_file(result[0] as Vips.Image, "test.png"));

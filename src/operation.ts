@@ -10,6 +10,7 @@ import {
   vips_object_set,
 } from "./object";
 import { vips_image_imageize } from "./image";
+import { _snake_case } from "./wrapper";
 
 Vips.init("vips-test");
 
@@ -317,7 +318,7 @@ export class Introspect {
     // fetch optional output args
     const opts: Record<string, any> = {};
     this.optional_output.forEach((name) => {
-      if (needed_output.includes(name)) {
+      if (needed_output.includes(_snake_case(name))) {
         const value = vips_object_get(operation, name);
         opts[name] = value;
       }
@@ -332,7 +333,7 @@ export class Introspect {
     if (result.length == 0) {
       return null;
     } else if (result.length == 1) {
-      return result[0];
+      return result;
     }
 
     return result;
