@@ -220,23 +220,17 @@ export class Image extends Vips.Image {
 }
 `;
 
-  let operations: (string | null)[] = [];
-  let oppas: string[] = [];
+  let operations: [string, (string | null)][] = [];
 
   function add_docs(gtype: GObject.GType) {
     const nickname = Vips.nickname_find(gtype);
-    oppas.push(nickname);
-
-    if (nickname === "affine") {
-      console.log("affine", generateDoc(nickname));
-    }
 
     if (banned.includes(nickname)) {
       return;
     }
 
     try {
-      operations.push(generateDoc(nickname));
+      operations.push([nickname, generateDoc(nickname)]);
     } catch {}
 
     GObject
@@ -248,13 +242,12 @@ export class Image extends Vips.Image {
     .type_children(GObject.type_from_name("VipsOperation"))
     .map(add_docs);
 
-  console.log("oppas", oppas.sort());
-
   let string = "";
 
   string += operations
-    .filter((x) => x)
-    .map((x) => indent(x!))
+    .filter((x) => x[1])
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map((x) => indent(x[1]!))
     .join("\n\n");
 
   return `${header}${string}${footer}`;

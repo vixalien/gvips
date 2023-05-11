@@ -295,7 +295,7 @@ export class Introspect {
     const operation = Vips.cache_operation_build(op);
 
     if (!operation) {
-      throw new Error(`unable to call ${this.name}`);
+      throw new Error(`unable to call ${this.name} ` + Vips.error_buffer());
     }
 
     const result = [];
