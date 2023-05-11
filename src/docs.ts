@@ -59,9 +59,14 @@ export function generateDoc(nickname: string) {
     .filter((x) => x)
     .join("\n");
 
-  if (intro.doc_optional_input.length > 0) {
+  if (
+    (intro.doc_optional_input.length > 0) ||
+    (intro.doc_optional_output.length > 0)
+  ) {
     result += `\n * @param [options] - optional parameters\n`;
+  }
 
+  if (intro.doc_optional_input.length > 0) {
     result += intro.doc_optional_input
       .map((x) => {
         const details = intro.details.get(x);
@@ -71,27 +76,83 @@ export function generateDoc(nickname: string) {
       })
       .filter((x) => x)
       .join("\n");
+
+    result += `\n`;
   }
 
-  result += `\n */
-${intro.member_x ? "" : "static "}${js_name}(\n`;
+  if (intro.doc_optional_output.length > 0) {
+    result += intro.doc_optional_output
+      .map((x) => {
+        const details = intro.details.get(x);
 
-  result += object_string(intro.method_args);
+        if (!details) return;
+        return ` * @param [options.${
+          _snake_case(x)
+        }] - Output - ${details.blurb}`;
+      })
+      .filter((x) => x)
+      .join("\n");
 
-  if (intro.doc_optional_input.length > 0) {
-    if (!result.endsWith("\n")) result += "\n";
+    result += `\n`;
+  }
 
-    result += indent("options?: {");
-    result += "\n";
+  result += ` */
+${intro.member_x ? "" : "static "}${js_name}`;
 
-    result += object_string(intro.doc_optional_input, {
+  if (intro.doc_optional_output.length > 0) {
+    result += `<
+  Output extends {\n`;
+
+    result += object_string(intro.optional_output, {
       n: 2,
       optional: true,
       semicolon: true,
     });
 
-    result += indent("\n}");
+    // ${intro.doc_optional_output
+    // .map(_snake_case)
+    // .map((output) => `"${output}"`)
+    // .join(" | ")}
+
+    result += indent(`\n},
+NeededOutput extends PartialUnion<keyof Output>,
+FilteredKeys extends FilteredOptional<Output, NeededOutput>,`);
+
+    result += `\n>`;
   }
+
+  result += `(\n`;
+
+  result += object_string(intro.method_args);
+
+  if (!result.endsWith("\n")) result += "\n";
+
+  result += indent("options?: Options<");
+  result += "\n";
+  result += indent("{", 2);
+  result += "\n";
+  
+  result += indent(`string_options?: string;`, 3);
+  result += "\n";
+
+  if (intro.doc_optional_input.length > 0) {
+    result += object_string(intro.doc_optional_input, {
+      n: 3,
+      optional: true,
+      semicolon: true,
+    });
+  }
+
+  if (!result.endsWith("\n")) result += "\n";
+
+  result += indent("}", 2);
+
+  if (intro.doc_optional_output.length > 0) {
+    result += ",\n";
+    result += indent("NeededOutput[]", 2);
+  }
+
+  result += indent("\n>,");
 
   result += `\n): `;
 
@@ -106,23 +167,21 @@ ${intro.member_x ? "" : "static "}${js_name}(\n`;
     if (intro.optional_output.length > 0) {
       if (!result.endsWith("\n")) result += "\n";
 
-      result += indent("optional_output?: {");
-      result += "\n";
+      result += indent("optional_output: Pick<Output, FilteredKeys>,");
 
-      result += object_string(intro.optional_output, {
-        n: 2,
-        optional: true,
-        semicolon: true,
-      });
-
-      result += indent("\n}");
       result += "\n";
     }
 
-    result += "]";
+    if (
+      intro.required_output.length === 0 && intro.optional_output.length > 0
+    ) {
+      result += "] | null;";
+    } else {
+      result += "];";
+    }
   } else if (intro.required_output.length === 1) {
     const type = intro.details.get(intro.required_output[0])!.type;
-    result += `${gtype_to_typescript(type)}`;
+    result += `${gtype_to_typescript(type)};`;
   } else {
     result += "void";
   }
@@ -134,6 +193,18 @@ export function generateDocs(vips_type = "gi-types/vips8") {
   const header = `// this file is generated automatically -- do not edit!
 
 import * as Vips from "${vips_type}";
+
+type Options<
+  Options extends Record<string, any>,
+  Output extends (string | number | symbol)[] | void = void,
+> = Options & (Output extends void ? {} : { output?: Output });
+
+type PartialUnion<T> = T extends infer U ? Partial<U> : never;
+
+type FilteredOptional<
+  Options extends Record<string, any>,
+  Given extends string | number | symbol,
+> = Given extends void ? never : Extract<keyof Options, Given>;
 
 export class Image extends Vips.Image {
 `;

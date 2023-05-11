@@ -2,6 +2,18 @@
 
 import * as Vips from "gi-types/vips8";
 
+type Options<
+  Options extends Record<string, any>,
+  Output extends (string | number | symbol)[] | void = void,
+> = Options & (Output extends void ? {} : { output?: Output });
+
+type PartialUnion<T> = T extends infer U ? Partial<U> : never;
+
+type FilteredOptional<
+  Options extends Record<string, any>,
+  Given extends string | number | symbol,
+> = Given extends void ? never : Extract<keyof Options, Given>;
+
 export class Image extends Vips.Image {
   /**
    * run an external command
@@ -10,88 +22,122 @@ export class Image extends Vips.Image {
    * @param [options.in] - Array of input images
    * @param [options.out_format] - Format for output filename
    * @param [options.in_format] - Format for input filename
+   * @param [options.out] - Output - Output image
+   * @param [options.log] - Output - Command log
    */
-  static system(
-    cmd_format: string,
-    options?: {
-      in?: Vips.Image[];
-      out_format?: string;
-      in_format?: string;  
-    }
-  ): [
-    optional_output?: {
+  static system<
+    Output extends {
       out?: Vips.Image;
       log?: string;  
-    }
-  ]
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
+    cmd_format: string,
+    options?: Options<
+      {
+        string_options?: string;
+        in?: Vips.Image[];
+        out_format?: string;
+        in_format?: string;
+      },
+      NeededOutput[]  
+    >,
+  ): [
+    optional_output: Pick<Output, FilteredKeys>,
+  ] | null;
 
   /**
    * relational operation on two images
    * @param left - Left-hand image argument
    * @param right - Right-hand image argument
-   * @param relational - Relational to perform
-   */
+   * @param relational - Relational to perform */
   relational(
     left: Vips.Image,
     right: Vips.Image,
     relational: Vips.OperationRelational,
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * remainder after integer division of two images
    * @param left - Left-hand image argument
-   * @param right - Right-hand image argument
-   */
+   * @param right - Right-hand image argument */
   remainder(
     left: Vips.Image,
     right: Vips.Image,
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * boolean operation on two images
    * @param left - Left-hand image argument
    * @param right - Right-hand image argument
-   * @param boolean - Boolean to perform
-   */
+   * @param boolean - Boolean to perform */
   boolean(
     left: Vips.Image,
     right: Vips.Image,
     boolean: Vips.OperationBoolean,
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * binary math operations
    * @param left - Left-hand image argument
    * @param right - Right-hand image argument
-   * @param math2 - Math to perform
-   */
+   * @param math2 - Math to perform */
   math2(
     left: Vips.Image,
     right: Vips.Image,
     math2: Vips.OperationMath2,
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * complex binary operations on two images
    * @param left - Left-hand image argument
    * @param right - Right-hand image argument
-   * @param cmplx - Binary complex operation to perform
-   */
+   * @param cmplx - Binary complex operation to perform */
   complex2(
     left: Vips.Image,
     right: Vips.Image,
     cmplx: Vips.OperationComplex2,
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * form a complex image from two real images
    * @param left - Left-hand image argument
-   * @param right - Right-hand image argument
-   */
+   * @param right - Right-hand image argument */
   complexform(
     left: Vips.Image,
     right: Vips.Image,
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * insert image @sub into @main at @x, @y
@@ -108,11 +154,14 @@ export class Image extends Vips.Image {
     sub: Vips.Image,
     x: number,
     y: number,
-    options?: {
-      expand?: boolean;
-      background?: number[];  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        expand?: boolean;
+        background?: number[];
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * join a pair of images
@@ -129,13 +178,16 @@ export class Image extends Vips.Image {
     in1: Vips.Image,
     in2: Vips.Image,
     direction: Vips.Direction,
-    options?: {
-      expand?: boolean;
-      shim?: number;
-      background?: number[];
-      align?: Vips.Align;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        expand?: boolean;
+        shim?: number;
+        background?: number[];
+        align?: Vips.Align;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * extract an area from an image
@@ -143,15 +195,19 @@ export class Image extends Vips.Image {
    * @param left - Left edge of extract area
    * @param top - Top edge of extract area
    * @param width - Width of extract area
-   * @param height - Height of extract area
-   */
+   * @param height - Height of extract area */
   extract_area(
     input: Vips.Image,
     left: number,
     top: number,
     width: number,
     height: number,
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * extract an area from an image
@@ -159,15 +215,19 @@ export class Image extends Vips.Image {
    * @param left - Left edge of extract area
    * @param top - Top edge of extract area
    * @param width - Width of extract area
-   * @param height - Height of extract area
-   */
+   * @param height - Height of extract area */
   extract_area(
     input: Vips.Image,
     left: number,
     top: number,
     width: number,
     height: number,
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * extract an area from an image
@@ -176,33 +236,47 @@ export class Image extends Vips.Image {
    * @param height - Height of extract area
    * @param [options] - optional parameters
    * @param [options.interesting] - How to measure interestingness
+   * @param [options.attention_x] - Output - Horizontal position of attention centre
+   * @param [options.attention_y] - Output - Vertical position of attention centre
    */
-  smartcrop(
+  smartcrop<
+    Output extends {
+      attention_x?: number;
+      attention_y?: number;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     input: Vips.Image,
     width: number,
     height: number,
-    options?: {
-      interesting?: Vips.Interesting;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        interesting?: Vips.Interesting;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      attention_x?: number;
-      attention_y?: number;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * zoom an image
    * @param input - Input image
    * @param xfac - Horizontal zoom factor
-   * @param yfac - Vertical zoom factor
-   */
+   * @param yfac - Vertical zoom factor */
   zoom(
     input: Vips.Image,
     xfac: number,
     yfac: number,
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * subsample an image
@@ -216,10 +290,13 @@ export class Image extends Vips.Image {
     input: Vips.Image,
     xfac: number,
     yfac: number,
-    options?: {
-      point?: boolean;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        point?: boolean;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * blend a pair of images with a blend mode
@@ -236,13 +313,16 @@ export class Image extends Vips.Image {
     base: Vips.Image,
     overlay: Vips.Image,
     mode: Vips.BlendMode,
-    options?: {
-      x?: number;
-      y?: number;
-      compositing_space?: Vips.Interpretation;
-      premultiplied?: boolean;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        x?: number;
+        y?: number;
+        compositing_space?: Vips.Interpretation;
+        premultiplied?: boolean;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make a black image
@@ -254,10 +334,13 @@ export class Image extends Vips.Image {
   static black(
     width: number,
     height: number,
-    options?: {
-      bands?: number;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        bands?: number;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make a gaussnoise image
@@ -271,12 +354,15 @@ export class Image extends Vips.Image {
   static gaussnoise(
     width: number,
     height: number,
-    options?: {
-      sigma?: number;
-      mean?: number;
-      seed?: number;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        sigma?: number;
+        mean?: number;
+        seed?: number;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make an image where pixel values are coordinates
@@ -290,12 +376,15 @@ export class Image extends Vips.Image {
   static xyz(
     width: number,
     height: number,
-    options?: {
-      csize?: number;
-      dsize?: number;
-      esize?: number;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        csize?: number;
+        dsize?: number;
+        esize?: number;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make a gaussian image
@@ -308,11 +397,14 @@ export class Image extends Vips.Image {
   static gaussmat(
     sigma: number,
     min_ampl: number,
-    options?: {
-      separable?: boolean;
-      precision?: Vips.Precision;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        separable?: boolean;
+        precision?: Vips.Precision;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make a Laplacian of Gaussian image
@@ -325,11 +417,14 @@ export class Image extends Vips.Image {
   static logmat(
     sigma: number,
     min_ampl: number,
-    options?: {
-      separable?: boolean;
-      precision?: Vips.Precision;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        separable?: boolean;
+        precision?: Vips.Precision;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make a text image
@@ -345,27 +440,36 @@ export class Image extends Vips.Image {
    * @param [options.fontfile] - Load this font file
    * @param [options.rgba] - Enable RGBA output
    * @param [options.wrap] - Wrap lines on word or character boundaries
+   * @param [options.autofit_dpi] - Output - DPI selected by autofit
    */
-  static text(
+  static text<
+    Output extends {
+      autofit_dpi?: number;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     text: string,
-    options?: {
-      font?: string;
-      width?: number;
-      height?: number;
-      align?: Vips.Align;
-      justify?: boolean;
-      dpi?: number;
-      spacing?: number;
-      fontfile?: string;
-      rgba?: boolean;
-      wrap?: Vips.TextWrap;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        font?: string;
+        width?: number;
+        height?: number;
+        align?: Vips.Align;
+        justify?: boolean;
+        dpi?: number;
+        spacing?: number;
+        fontfile?: string;
+        rgba?: boolean;
+        wrap?: Vips.TextWrap;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      autofit_dpi?: number;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * make an image showing the eye's spatial response
@@ -378,11 +482,14 @@ export class Image extends Vips.Image {
   static eye(
     width: number,
     height: number,
-    options?: {
-      uchar?: boolean;
-      factor?: number;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        uchar?: boolean;
+        factor?: number;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make a grey ramp image
@@ -394,10 +501,13 @@ export class Image extends Vips.Image {
   static grey(
     width: number,
     height: number,
-    options?: {
-      uchar?: boolean;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        uchar?: boolean;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make a zone plate
@@ -409,10 +519,13 @@ export class Image extends Vips.Image {
   static zone(
     width: number,
     height: number,
-    options?: {
-      uchar?: boolean;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        uchar?: boolean;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make a 2D sine wave
@@ -426,12 +539,15 @@ export class Image extends Vips.Image {
   static sines(
     width: number,
     height: number,
-    options?: {
-      uchar?: boolean;
-      hfreq?: number;
-      vfreq?: number;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        uchar?: boolean;
+        hfreq?: number;
+        vfreq?: number;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make an ideal filter
@@ -448,13 +564,16 @@ export class Image extends Vips.Image {
     width: number,
     height: number,
     frequency_cutoff: number,
-    options?: {
-      uchar?: boolean;
-      nodc?: boolean;
-      reject?: boolean;
-      optical?: boolean;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        uchar?: boolean;
+        nodc?: boolean;
+        reject?: boolean;
+        optical?: boolean;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make an ideal ring filter
@@ -473,13 +592,16 @@ export class Image extends Vips.Image {
     height: number,
     frequency_cutoff: number,
     ringwidth: number,
-    options?: {
-      uchar?: boolean;
-      nodc?: boolean;
-      reject?: boolean;
-      optical?: boolean;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        uchar?: boolean;
+        nodc?: boolean;
+        reject?: boolean;
+        optical?: boolean;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make an ideal band filter
@@ -500,13 +622,16 @@ export class Image extends Vips.Image {
     frequency_cutoff_x: number,
     frequency_cutoff_y: number,
     radius: number,
-    options?: {
-      uchar?: boolean;
-      nodc?: boolean;
-      reject?: boolean;
-      optical?: boolean;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        uchar?: boolean;
+        nodc?: boolean;
+        reject?: boolean;
+        optical?: boolean;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make a butterworth filter
@@ -527,13 +652,16 @@ export class Image extends Vips.Image {
     order: number,
     frequency_cutoff: number,
     amplitude_cutoff: number,
-    options?: {
-      uchar?: boolean;
-      nodc?: boolean;
-      reject?: boolean;
-      optical?: boolean;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        uchar?: boolean;
+        nodc?: boolean;
+        reject?: boolean;
+        optical?: boolean;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make a butterworth ring filter
@@ -556,13 +684,16 @@ export class Image extends Vips.Image {
     frequency_cutoff: number,
     amplitude_cutoff: number,
     ringwidth: number,
-    options?: {
-      uchar?: boolean;
-      nodc?: boolean;
-      reject?: boolean;
-      optical?: boolean;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        uchar?: boolean;
+        nodc?: boolean;
+        reject?: boolean;
+        optical?: boolean;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make a butterworth_band filter
@@ -587,13 +718,16 @@ export class Image extends Vips.Image {
     frequency_cutoff_y: number,
     radius: number,
     amplitude_cutoff: number,
-    options?: {
-      uchar?: boolean;
-      nodc?: boolean;
-      reject?: boolean;
-      optical?: boolean;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        uchar?: boolean;
+        nodc?: boolean;
+        reject?: boolean;
+        optical?: boolean;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make a gaussian filter
@@ -612,13 +746,16 @@ export class Image extends Vips.Image {
     height: number,
     frequency_cutoff: number,
     amplitude_cutoff: number,
-    options?: {
-      uchar?: boolean;
-      nodc?: boolean;
-      reject?: boolean;
-      optical?: boolean;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        uchar?: boolean;
+        nodc?: boolean;
+        reject?: boolean;
+        optical?: boolean;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make a gaussian ring filter
@@ -639,13 +776,16 @@ export class Image extends Vips.Image {
     frequency_cutoff: number,
     amplitude_cutoff: number,
     ringwidth: number,
-    options?: {
-      uchar?: boolean;
-      nodc?: boolean;
-      reject?: boolean;
-      optical?: boolean;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        uchar?: boolean;
+        nodc?: boolean;
+        reject?: boolean;
+        optical?: boolean;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make a gaussian filter
@@ -668,13 +808,16 @@ export class Image extends Vips.Image {
     frequency_cutoff_y: number,
     radius: number,
     amplitude_cutoff: number,
-    options?: {
-      uchar?: boolean;
-      nodc?: boolean;
-      reject?: boolean;
-      optical?: boolean;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        uchar?: boolean;
+        nodc?: boolean;
+        reject?: boolean;
+        optical?: boolean;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make fractal filter
@@ -691,13 +834,16 @@ export class Image extends Vips.Image {
     width: number,
     height: number,
     fractal_dimension: number,
-    options?: {
-      uchar?: boolean;
-      nodc?: boolean;
-      reject?: boolean;
-      optical?: boolean;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        uchar?: boolean;
+        nodc?: boolean;
+        reject?: boolean;
+        optical?: boolean;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * build a look-up table
@@ -715,19 +861,22 @@ export class Image extends Vips.Image {
    * @param [options.H] - Adjust highlights by this much
    */
   static tonelut(
-    options?: {
-      in_max?: number;
-      out_max?: number;
-      Lb?: number;
-      Lw?: number;
-      Ps?: number;
-      Pm?: number;
-      Ph?: number;
-      S?: number;
-      M?: number;
-      H?: number;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        in_max?: number;
+        out_max?: number;
+        Lb?: number;
+        Lw?: number;
+        Ps?: number;
+        Pm?: number;
+        Ph?: number;
+        S?: number;
+        M?: number;
+        H?: number;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make a 1D image where pixel values are indexes
@@ -738,24 +887,31 @@ export class Image extends Vips.Image {
    * @param [options.size] - Size of 16-bit LUT
    */
   static identity(
-    options?: {
-      bands?: number;
-      ushort?: boolean;
-      size?: number;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        bands?: number;
+        ushort?: boolean;
+        size?: number;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make a fractal surface
    * @param width - Image width in pixels
    * @param height - Image height in pixels
-   * @param fractal_dimension - Fractal dimension
-   */
+   * @param fractal_dimension - Fractal dimension */
   static fractsurf(
     width: number,
     height: number,
     fractal_dimension: number,
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make a worley noise image
@@ -768,11 +924,14 @@ export class Image extends Vips.Image {
   static worley(
     width: number,
     height: number,
-    options?: {
-      cell_size?: number;
-      seed?: number;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        cell_size?: number;
+        seed?: number;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * make a perlin noise image
@@ -786,20 +945,27 @@ export class Image extends Vips.Image {
   static perlin(
     width: number,
     height: number,
-    options?: {
-      cell_size?: number;
-      uchar?: boolean;
-      seed?: number;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        cell_size?: number;
+        uchar?: boolean;
+        seed?: number;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * find the index of the first non-zero pixel in tests
-   * @param tests - Table of images to test
-   */
+   * @param tests - Table of images to test */
   static switch(
     tests: Vips.Image[],
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * load csv
@@ -812,24 +978,33 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static csvload(
+  static csvload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      skip?: number;
-      lines?: number;
-      whitespace?: string;
-      separator?: string;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        skip?: number;
+        lines?: number;
+        whitespace?: string;
+        separator?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load csv
@@ -842,24 +1017,33 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static csvload_source(
+  static csvload_source<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     source: Vips.Source,
-    options?: {
-      skip?: number;
-      lines?: number;
-      whitespace?: string;
-      separator?: string;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        skip?: number;
+        lines?: number;
+        whitespace?: string;
+        separator?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load matrix
@@ -868,20 +1052,29 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static matrixload(
+  static matrixload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load matrix
@@ -890,20 +1083,29 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static matrixload_source(
+  static matrixload_source<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     source: Vips.Source,
-    options?: {
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load raw data from a file
@@ -918,26 +1120,35 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static rawload(
+  static rawload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
     width: number,
     height: number,
     bands: number,
-    options?: {
-      offset?: number;
-      format?: Vips.BandFormat;
-      interpretation?: Vips.Interpretation;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        offset?: number;
+        format?: Vips.BandFormat;
+        interpretation?: Vips.Interpretation;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load vips from file
@@ -946,20 +1157,29 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static vipsload(
+  static vipsload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load vips from source
@@ -968,20 +1188,29 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static vipsload_source(
+  static vipsload_source<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     source: Vips.Source,
-    options?: {
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load an Analyze6 image
@@ -990,20 +1219,29 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static analyzeload(
+  static analyzeload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load ppm from file
@@ -1012,20 +1250,29 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static ppmload(
+  static ppmload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load ppm base class
@@ -1034,20 +1281,29 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static ppmload_source(
+  static ppmload_source<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     source: Vips.Source,
-    options?: {
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load a Radiance image from a file
@@ -1056,20 +1312,29 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static radload(
+  static radload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load rad from buffer
@@ -1078,20 +1343,29 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static radload_buffer(
+  static radload_buffer<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     buffer: Vips.Blob,
-    options?: {
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load rad from source
@@ -1100,20 +1374,29 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static radload_source(
+  static radload_source<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     source: Vips.Source,
-    options?: {
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load SVG with rsvg
@@ -1125,23 +1408,32 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static svgload(
+  static svgload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      dpi?: number;
-      scale?: number;
-      unlimited?: boolean;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        dpi?: number;
+        scale?: number;
+        unlimited?: boolean;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load SVG with rsvg
@@ -1153,23 +1445,32 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static svgload_buffer(
+  static svgload_buffer<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     buffer: Vips.Blob,
-    options?: {
-      dpi?: number;
-      scale?: number;
-      unlimited?: boolean;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        dpi?: number;
+        scale?: number;
+        unlimited?: boolean;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load svg from source
@@ -1181,23 +1482,32 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static svgload_source(
+  static svgload_source<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     source: Vips.Source,
-    options?: {
-      dpi?: number;
-      scale?: number;
-      unlimited?: boolean;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        dpi?: number;
+        scale?: number;
+        unlimited?: boolean;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load JPEG2000 image
@@ -1207,21 +1517,30 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static jp2kload(
+  static jp2kload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      page?: number;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        page?: number;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load JPEG2000 image
@@ -1231,21 +1550,30 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static jp2kload_buffer(
+  static jp2kload_buffer<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     buffer: Vips.Blob,
-    options?: {
-      page?: number;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        page?: number;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load JPEG2000 image
@@ -1255,21 +1583,30 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static jp2kload_source(
+  static jp2kload_source<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     source: Vips.Source,
-    options?: {
-      page?: number;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        page?: number;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load GIF with libnsgif
@@ -1280,22 +1617,31 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static gifload(
+  static gifload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      n?: number;
-      page?: number;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        n?: number;
+        page?: number;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load GIF with libnsgif
@@ -1306,22 +1652,31 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static gifload_buffer(
+  static gifload_buffer<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     buffer: Vips.Blob,
-    options?: {
-      n?: number;
-      page?: number;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        n?: number;
+        page?: number;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load gif from source
@@ -1332,22 +1687,31 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static gifload_source(
+  static gifload_source<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     source: Vips.Source,
-    options?: {
-      n?: number;
-      page?: number;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        n?: number;
+        page?: number;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load png from file
@@ -1357,21 +1721,30 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static pngload(
+  static pngload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      unlimited?: boolean;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        unlimited?: boolean;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load png from buffer
@@ -1381,21 +1754,30 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static pngload_buffer(
+  static pngload_buffer<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     buffer: Vips.Blob,
-    options?: {
-      unlimited?: boolean;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        unlimited?: boolean;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load png from source
@@ -1405,21 +1787,30 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static pngload_source(
+  static pngload_source<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     source: Vips.Source,
-    options?: {
-      unlimited?: boolean;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        unlimited?: boolean;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load jpeg from file
@@ -1431,23 +1822,32 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static jpegload(
+  static jpegload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      shrink?: number;
-      autorotate?: boolean;
-      unlimited?: boolean;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        shrink?: number;
+        autorotate?: boolean;
+        unlimited?: boolean;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load jpeg from buffer
@@ -1459,23 +1859,32 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static jpegload_buffer(
+  static jpegload_buffer<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     buffer: Vips.Blob,
-    options?: {
-      shrink?: number;
-      autorotate?: boolean;
-      unlimited?: boolean;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        shrink?: number;
+        autorotate?: boolean;
+        unlimited?: boolean;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load image from jpeg source
@@ -1487,23 +1896,32 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static jpegload_source(
+  static jpegload_source<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     source: Vips.Source,
-    options?: {
-      shrink?: number;
-      autorotate?: boolean;
-      unlimited?: boolean;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        shrink?: number;
+        autorotate?: boolean;
+        unlimited?: boolean;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load webp from file
@@ -1515,23 +1933,32 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static webpload(
+  static webpload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      page?: number;
-      n?: number;
-      scale?: number;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        page?: number;
+        n?: number;
+        scale?: number;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load webp from buffer
@@ -1543,23 +1970,32 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static webpload_buffer(
+  static webpload_buffer<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     buffer: Vips.Blob,
-    options?: {
-      page?: number;
-      n?: number;
-      scale?: number;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        page?: number;
+        n?: number;
+        scale?: number;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load webp from source
@@ -1571,23 +2007,32 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static webpload_source(
+  static webpload_source<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     source: Vips.Source,
-    options?: {
-      page?: number;
-      n?: number;
-      scale?: number;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        page?: number;
+        n?: number;
+        scale?: number;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load tiff from file
@@ -1600,24 +2045,33 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static tiffload(
+  static tiffload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      page?: number;
-      subifd?: number;
-      n?: number;
-      autorotate?: boolean;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        page?: number;
+        subifd?: number;
+        n?: number;
+        autorotate?: boolean;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load tiff from buffer
@@ -1630,24 +2084,33 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static tiffload_buffer(
+  static tiffload_buffer<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     buffer: Vips.Blob,
-    options?: {
-      page?: number;
-      subifd?: number;
-      n?: number;
-      autorotate?: boolean;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        page?: number;
+        subifd?: number;
+        n?: number;
+        autorotate?: boolean;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load tiff from source
@@ -1660,24 +2123,33 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static tiffload_source(
+  static tiffload_source<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     source: Vips.Source,
-    options?: {
-      page?: number;
-      subifd?: number;
-      n?: number;
-      autorotate?: boolean;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        page?: number;
+        subifd?: number;
+        n?: number;
+        autorotate?: boolean;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load a FITS image
@@ -1686,20 +2158,29 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static fitsload(
+  static fitsload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load FITS from a source
@@ -1708,20 +2189,29 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static fitsload_source(
+  static fitsload_source<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     source: Vips.Source,
-    options?: {
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load an OpenEXR image
@@ -1730,20 +2220,29 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static openexrload(
+  static openexrload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load file with ImageMagick7
@@ -1755,23 +2254,32 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static magickload(
+  static magickload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      density?: string;
-      page?: number;
-      n?: number;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        density?: string;
+        page?: number;
+        n?: number;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load buffer with ImageMagick7
@@ -1783,23 +2291,32 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static magickload_buffer(
+  static magickload_buffer<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     buffer: Vips.Blob,
-    options?: {
-      density?: string;
-      page?: number;
-      n?: number;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        density?: string;
+        page?: number;
+        n?: number;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load a HEIF image
@@ -1812,24 +2329,33 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static heifload(
+  static heifload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      page?: number;
-      n?: number;
-      thumbnail?: boolean;
-      unlimited?: boolean;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        page?: number;
+        n?: number;
+        thumbnail?: boolean;
+        unlimited?: boolean;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load a HEIF image
@@ -1842,24 +2368,33 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static heifload_buffer(
+  static heifload_buffer<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     buffer: Vips.Blob,
-    options?: {
-      page?: number;
-      n?: number;
-      thumbnail?: boolean;
-      unlimited?: boolean;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        page?: number;
+        n?: number;
+        thumbnail?: boolean;
+        unlimited?: boolean;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load a HEIF image
@@ -1872,24 +2407,33 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static heifload_source(
+  static heifload_source<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     source: Vips.Source,
-    options?: {
-      page?: number;
-      n?: number;
-      thumbnail?: boolean;
-      unlimited?: boolean;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        page?: number;
+        n?: number;
+        thumbnail?: boolean;
+        unlimited?: boolean;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load PDF from file
@@ -1904,26 +2448,35 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static pdfload(
+  static pdfload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      page?: number;
-      n?: number;
-      dpi?: number;
-      scale?: number;
-      background?: number[];
-      password?: string;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        page?: number;
+        n?: number;
+        dpi?: number;
+        scale?: number;
+        background?: number[];
+        password?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load PDF from buffer
@@ -1938,26 +2491,35 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static pdfload_buffer(
+  static pdfload_buffer<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     buffer: Vips.Blob,
-    options?: {
-      page?: number;
-      n?: number;
-      dpi?: number;
-      scale?: number;
-      background?: number[];
-      password?: string;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        page?: number;
+        n?: number;
+        dpi?: number;
+        scale?: number;
+        background?: number[];
+        password?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load PDF from source
@@ -1972,26 +2534,35 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static pdfload_source(
+  static pdfload_source<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     source: Vips.Source,
-    options?: {
-      page?: number;
-      n?: number;
-      dpi?: number;
-      scale?: number;
-      background?: number[];
-      password?: string;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        page?: number;
+        n?: number;
+        dpi?: number;
+        scale?: number;
+        background?: number[];
+        password?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load JPEG-XL image
@@ -2000,20 +2571,29 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static jxlload(
+  static jxlload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load JPEG-XL image
@@ -2022,20 +2602,29 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static jxlload_buffer(
+  static jxlload_buffer<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     buffer: Vips.Blob,
-    options?: {
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load JPEG-XL image
@@ -2044,20 +2633,29 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static jxlload_source(
+  static jxlload_source<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     source: Vips.Source,
-    options?: {
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load file with OpenSlide
@@ -2071,25 +2669,34 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static openslideload(
+  static openslideload<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     filename: string,
-    options?: {
-      level?: number;
-      autocrop?: boolean;
-      associated?: string;
-      attach_associated?: boolean;
-      rgb?: boolean;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        level?: number;
+        autocrop?: boolean;
+        associated?: string;
+        attach_associated?: boolean;
+        rgb?: boolean;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * load source with OpenSlide
@@ -2103,25 +2710,34 @@ export class Image extends Vips.Image {
    * @param [options.memory] - Force open via memory
    * @param [options.access] - Required access pattern for this file
    * @param [options.fail_on] - Error level to fail on
+   * @param [options.flags] - Output - Flags for this file
    */
-  static openslideload_source(
+  static openslideload_source<
+    Output extends {
+      flags?: Vips.ForeignFlags;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     source: Vips.Source,
-    options?: {
-      level?: number;
-      autocrop?: boolean;
-      associated?: string;
-      attach_associated?: boolean;
-      rgb?: boolean;
-      memory?: boolean;
-      access?: Vips.Access;
-      fail_on?: Vips.FailOn;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        level?: number;
+        autocrop?: boolean;
+        associated?: string;
+        attach_associated?: boolean;
+        rgb?: boolean;
+        memory?: boolean;
+        access?: Vips.Access;
+        fail_on?: Vips.FailOn;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      flags?: Vips.ForeignFlags;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * generate thumbnail from file
@@ -2141,18 +2757,21 @@ export class Image extends Vips.Image {
   static thumbnail(
     filename: string,
     width: number,
-    options?: {
-      height?: number;
-      size?: Vips.Size;
-      no_rotate?: boolean;
-      crop?: Vips.Interesting;
-      linear?: boolean;
-      import_profile?: string;
-      export_profile?: string;
-      intent?: Vips.Intent;
-      fail_on?: Vips.FailOn;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        height?: number;
+        size?: Vips.Size;
+        no_rotate?: boolean;
+        crop?: Vips.Interesting;
+        linear?: boolean;
+        import_profile?: string;
+        export_profile?: string;
+        intent?: Vips.Intent;
+        fail_on?: Vips.FailOn;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * generate thumbnail from buffer
@@ -2173,19 +2792,22 @@ export class Image extends Vips.Image {
   static thumbnail_buffer(
     buffer: Vips.Blob,
     width: number,
-    options?: {
-      option_string?: string;
-      height?: number;
-      size?: Vips.Size;
-      no_rotate?: boolean;
-      crop?: Vips.Interesting;
-      linear?: boolean;
-      import_profile?: string;
-      export_profile?: string;
-      intent?: Vips.Intent;
-      fail_on?: Vips.FailOn;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        option_string?: string;
+        height?: number;
+        size?: Vips.Size;
+        no_rotate?: boolean;
+        crop?: Vips.Interesting;
+        linear?: boolean;
+        import_profile?: string;
+        export_profile?: string;
+        intent?: Vips.Intent;
+        fail_on?: Vips.FailOn;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * generate thumbnail from source
@@ -2206,67 +2828,90 @@ export class Image extends Vips.Image {
   static thumbnail_source(
     source: Vips.Source,
     width: number,
-    options?: {
-      option_string?: string;
-      height?: number;
-      size?: Vips.Size;
-      no_rotate?: boolean;
-      crop?: Vips.Interesting;
-      linear?: boolean;
-      import_profile?: string;
-      export_profile?: string;
-      intent?: Vips.Intent;
-      fail_on?: Vips.FailOn;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        option_string?: string;
+        height?: number;
+        size?: Vips.Size;
+        no_rotate?: boolean;
+        crop?: Vips.Interesting;
+        linear?: boolean;
+        import_profile?: string;
+        export_profile?: string;
+        intent?: Vips.Intent;
+        fail_on?: Vips.FailOn;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * calculate dE76
    * @param left - Left-hand input image
-   * @param right - Right-hand input image
-   */
+   * @param right - Right-hand input image */
   dE76(
     left: Vips.Image,
     right: Vips.Image,
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * calculate dE00
    * @param left - Left-hand input image
-   * @param right - Right-hand input image
-   */
+   * @param right - Right-hand input image */
   dE00(
     left: Vips.Image,
     right: Vips.Image,
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * calculate dECMC
    * @param left - Left-hand input image
-   * @param right - Right-hand input image
-   */
+   * @param right - Right-hand input image */
   dECMC(
     left: Vips.Image,
     right: Vips.Image,
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * load named ICC profile
-   * @param name - Profile name
-   */
+   * @param name - Profile name */
   static profile_load(
     name: string,
-  ): Vips.Blob
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Blob;
 
   /**
    * use pixel values to pick cases from an array of images
    * @param index - Index image
-   * @param cases - Array of case images
-   */
+   * @param cases - Array of case images */
   case(
     index: Vips.Image,
     cases: Vips.Image[],
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * paint a rectangle on an image
@@ -2286,10 +2931,13 @@ export class Image extends Vips.Image {
     top: number,
     width: number,
     height: number,
-    options?: {
-      fill?: boolean;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        fill?: boolean;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * draw a mask on an image
@@ -2297,15 +2945,19 @@ export class Image extends Vips.Image {
    * @param ink - Color for pixels
    * @param mask - Mask of pixels to draw
    * @param x - Draw mask here
-   * @param y - Draw mask here
-   */
+   * @param y - Draw mask here */
   draw_mask(
     image: Vips.Image,
     ink: number[],
     mask: Vips.Image,
     x: number,
     y: number,
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * draw a line on an image
@@ -2314,8 +2966,7 @@ export class Image extends Vips.Image {
    * @param x1 - Start of draw_line
    * @param y1 - Start of draw_line
    * @param x2 - End of draw_line
-   * @param y2 - End of draw_line
-   */
+   * @param y2 - End of draw_line */
   draw_line(
     image: Vips.Image,
     ink: number[],
@@ -2323,7 +2974,12 @@ export class Image extends Vips.Image {
     y1: number,
     x2: number,
     y2: number,
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * draw a circle on an image
@@ -2341,10 +2997,13 @@ export class Image extends Vips.Image {
     cx: number,
     cy: number,
     radius: number,
-    options?: {
-      fill?: boolean;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        fill?: boolean;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * flood-fill an area
@@ -2355,25 +3014,37 @@ export class Image extends Vips.Image {
    * @param [options] - optional parameters
    * @param [options.test] - Test pixels in this image
    * @param [options.equal] - DrawFlood while equal to edge
+   * @param [options.left] - Output - Left edge of modified area
+   * @param [options.top] - Output - Top edge of modified area
+   * @param [options.width] - Output - Width of modified area
+   * @param [options.height] - Output - Height of modified area
    */
-  draw_flood(
-    image: Vips.Image,
-    ink: number[],
-    x: number,
-    y: number,
-    options?: {
-      test?: Vips.Image;
-      equal?: boolean;  
-    }
-  ): [
-    image: Vips.Image,
-    optional_output?: {
+  draw_flood<
+    Output extends {
       left?: number;
       top?: number;
       width?: number;
       height?: number;  
-    }
-  ]
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
+    image: Vips.Image,
+    ink: number[],
+    x: number,
+    y: number,
+    options?: Options<
+      {
+        string_options?: string;
+        test?: Vips.Image;
+        equal?: boolean;
+      },
+      NeededOutput[]  
+    >,
+  ): [
+    image: Vips.Image,
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * paint an image into another image
@@ -2389,10 +3060,13 @@ export class Image extends Vips.Image {
     sub: Vips.Image,
     x: number,
     y: number,
-    options?: {
-      mode?: Vips.CombineMode;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        mode?: Vips.CombineMode;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * blur a rectangle on an image
@@ -2400,15 +3074,19 @@ export class Image extends Vips.Image {
    * @param left - Rect to fill
    * @param top - Rect to fill
    * @param width - Rect to fill
-   * @param height - Rect to fill
-   */
+   * @param height - Rect to fill */
   draw_smudge(
     image: Vips.Image,
     left: number,
     top: number,
     width: number,
     height: number,
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * merge two images
@@ -2426,10 +3104,13 @@ export class Image extends Vips.Image {
     direction: Vips.Direction,
     dx: number,
     dy: number,
-    options?: {
-      mblend?: number;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        mblend?: number;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * mosaic two images
@@ -2445,8 +3126,25 @@ export class Image extends Vips.Image {
    * @param [options.harea] - Half area size
    * @param [options.mblend] - Maximum blend size
    * @param [options.bandno] - Band to search for features on
+   * @param [options.dx0] - Output - Detected integer offset
+   * @param [options.dy0] - Output - Detected integer offset
+   * @param [options.scale1] - Output - Detected scale
+   * @param [options.angle1] - Output - Detected rotation
+   * @param [options.dy1] - Output - Detected first-order displacement
+   * @param [options.dx1] - Output - Detected first-order displacement
    */
-  mosaic(
+  mosaic<
+    Output extends {
+      dx0?: number;
+      dy0?: number;
+      scale1?: number;
+      angle1?: number;
+      dy1?: number;
+      dx1?: number;  
+    },
+    NeededOutput extends PartialUnion<keyof Output>,
+    FilteredKeys extends FilteredOptional<Output, NeededOutput>,
+  >(
     ref: Vips.Image,
     sec: Vips.Image,
     direction: Vips.Direction,
@@ -2454,23 +3152,20 @@ export class Image extends Vips.Image {
     yref: number,
     xsec: number,
     ysec: number,
-    options?: {
-      hwindow?: number;
-      harea?: number;
-      mblend?: number;
-      bandno?: number;  
-    }
+    options?: Options<
+      {
+        string_options?: string;
+        hwindow?: number;
+        harea?: number;
+        mblend?: number;
+        bandno?: number;
+      },
+      NeededOutput[]  
+    >,
   ): [
     out: Vips.Image,
-    optional_output?: {
-      dx0?: number;
-      dy0?: number;
-      scale1?: number;
-      angle1?: number;
-      dy1?: number;
-      dx1?: number;  
-    }
-  ]
+    optional_output: Pick<Output, FilteredKeys>,
+  ];
 
   /**
    * first-order mosaic of two images
@@ -2504,14 +3199,17 @@ export class Image extends Vips.Image {
     yr2: number,
     xs2: number,
     ys2: number,
-    options?: {
-      hwindow?: number;
-      harea?: number;
-      search?: boolean;
-      interpolate?: Vips.Interpolate;
-      mblend?: number;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        hwindow?: number;
+        harea?: number;
+        search?: boolean;
+        interpolate?: Vips.Interpolate;
+        mblend?: number;
+      }  
+    >,
+  ): Vips.Image;
 
   /**
    * first-order match of two images
@@ -2542,11 +3240,14 @@ export class Image extends Vips.Image {
     yr2: number,
     xs2: number,
     ys2: number,
-    options?: {
-      hwindow?: number;
-      harea?: number;
-      search?: boolean;
-      interpolate?: Vips.Interpolate;  
-    }
-  ): Vips.Image
+    options?: Options<
+      {
+        string_options?: string;
+        hwindow?: number;
+        harea?: number;
+        search?: boolean;
+        interpolate?: Vips.Interpolate;
+      }  
+    >,
+  ): Vips.Image;
 }

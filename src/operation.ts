@@ -260,7 +260,7 @@ export class Introspect {
 
     // set any optional args
     for (const name of Object.keys(options)) {
-      if (name === "string_options") continue;
+      if (name === "string_options" || name === "output") continue;
 
       const value = options[name];
       const details = this.details.get(name)!;
@@ -305,10 +305,15 @@ export class Introspect {
       result.push(value);
     });
 
+    const needed_output: string[] =
+      (options.hasOwnProperty("output") && Array.isArray(options.output))
+        ? options.output
+        : [];
+
     // fetch optional output args
     const opts: Record<string, any> = {};
     this.optional_output.forEach((name) => {
-      if (options.hasOwnProperty(name)) {
+      if (needed_output.includes(name)) {
         const value = vips_object_get(operation, name);
         opts[name] = value;
       }

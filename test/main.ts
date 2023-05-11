@@ -7,22 +7,22 @@ import { vips_image_write_to_file } from "src/image";
 
 initWrappers();
 
-const result = Vips.Image.system("uname -a", {log: "", out: ""});
+const result = Vips.Image.system("uname -a", { output: ["out"] });
 
 console.log(result);
 
 // const image = Vips.Image.new_from_file_RW("hello");
 // Vips.Image.black(100, 200);
 
-// const path = Gio.File.new_for_path("dist/types.d.ts");
+const path = Gio.File.new_for_path("dist/types.d.ts");
 
-// path.replace_contents(
-//   generateDocs(),
-//   null,
-//   false,
-//   Gio.FileCreateFlags.NONE,
-//   null,
-// );
+path.replace_contents(
+  generateDocs(),
+  null,
+  false,
+  Gio.FileCreateFlags.NONE,
+  null,
+);
 
 // const image = Vips.Image.new_from_file_RW(
 //   "/home/alien/Pictures/Exports/6 April 2023/sdffff.jpg",
