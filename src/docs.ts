@@ -105,7 +105,6 @@ ${intro.member_x ? "" : "static "}${js_name}`;
 
     result += object_string(intro.optional_output, {
       n: 2,
-      optional: true,
       semicolon: true,
     });
 

@@ -27,8 +27,8 @@ export class Image extends Vips.Image {
    */
   static system<
     Output extends {
-      out?: Vips.Image;
-      log?: string;  
+      out: Vips.Image;
+      log: string;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -241,8 +241,8 @@ export class Image extends Vips.Image {
    */
   smartcrop<
     Output extends {
-      attention_x?: number;
-      attention_y?: number;  
+      attention_x: number;
+      attention_y: number;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -444,7 +444,7 @@ export class Image extends Vips.Image {
    */
   static text<
     Output extends {
-      autofit_dpi?: number;  
+      autofit_dpi: number;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -982,7 +982,7 @@ export class Image extends Vips.Image {
    */
   static csvload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1021,7 +1021,7 @@ export class Image extends Vips.Image {
    */
   static csvload_source<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1056,7 +1056,7 @@ export class Image extends Vips.Image {
    */
   static matrixload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1087,7 +1087,7 @@ export class Image extends Vips.Image {
    */
   static matrixload_source<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1124,7 +1124,7 @@ export class Image extends Vips.Image {
    */
   static rawload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1161,7 +1161,7 @@ export class Image extends Vips.Image {
    */
   static vipsload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1192,7 +1192,7 @@ export class Image extends Vips.Image {
    */
   static vipsload_source<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1223,7 +1223,7 @@ export class Image extends Vips.Image {
    */
   static analyzeload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1254,7 +1254,7 @@ export class Image extends Vips.Image {
    */
   static ppmload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1285,7 +1285,7 @@ export class Image extends Vips.Image {
    */
   static ppmload_source<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1316,7 +1316,7 @@ export class Image extends Vips.Image {
    */
   static radload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1347,7 +1347,7 @@ export class Image extends Vips.Image {
    */
   static radload_buffer<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1378,7 +1378,7 @@ export class Image extends Vips.Image {
    */
   static radload_source<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1412,7 +1412,7 @@ export class Image extends Vips.Image {
    */
   static svgload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1449,7 +1449,7 @@ export class Image extends Vips.Image {
    */
   static svgload_buffer<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1486,7 +1486,7 @@ export class Image extends Vips.Image {
    */
   static svgload_source<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1521,7 +1521,7 @@ export class Image extends Vips.Image {
    */
   static jp2kload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1554,7 +1554,7 @@ export class Image extends Vips.Image {
    */
   static jp2kload_buffer<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1587,7 +1587,7 @@ export class Image extends Vips.Image {
    */
   static jp2kload_source<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1621,7 +1621,7 @@ export class Image extends Vips.Image {
    */
   static gifload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1656,7 +1656,7 @@ export class Image extends Vips.Image {
    */
   static gifload_buffer<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1691,7 +1691,7 @@ export class Image extends Vips.Image {
    */
   static gifload_source<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1725,7 +1725,7 @@ export class Image extends Vips.Image {
    */
   static pngload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1758,7 +1758,7 @@ export class Image extends Vips.Image {
    */
   static pngload_buffer<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1791,7 +1791,7 @@ export class Image extends Vips.Image {
    */
   static pngload_source<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1826,7 +1826,7 @@ export class Image extends Vips.Image {
    */
   static jpegload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1863,7 +1863,7 @@ export class Image extends Vips.Image {
    */
   static jpegload_buffer<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1900,7 +1900,7 @@ export class Image extends Vips.Image {
    */
   static jpegload_source<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1937,7 +1937,7 @@ export class Image extends Vips.Image {
    */
   static webpload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -1974,7 +1974,7 @@ export class Image extends Vips.Image {
    */
   static webpload_buffer<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2011,7 +2011,7 @@ export class Image extends Vips.Image {
    */
   static webpload_source<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2049,7 +2049,7 @@ export class Image extends Vips.Image {
    */
   static tiffload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2088,7 +2088,7 @@ export class Image extends Vips.Image {
    */
   static tiffload_buffer<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2127,7 +2127,7 @@ export class Image extends Vips.Image {
    */
   static tiffload_source<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2162,7 +2162,7 @@ export class Image extends Vips.Image {
    */
   static fitsload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2193,7 +2193,7 @@ export class Image extends Vips.Image {
    */
   static fitsload_source<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2224,7 +2224,7 @@ export class Image extends Vips.Image {
    */
   static openexrload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2258,7 +2258,7 @@ export class Image extends Vips.Image {
    */
   static magickload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2295,7 +2295,7 @@ export class Image extends Vips.Image {
    */
   static magickload_buffer<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2333,7 +2333,7 @@ export class Image extends Vips.Image {
    */
   static heifload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2372,7 +2372,7 @@ export class Image extends Vips.Image {
    */
   static heifload_buffer<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2411,7 +2411,7 @@ export class Image extends Vips.Image {
    */
   static heifload_source<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2452,7 +2452,7 @@ export class Image extends Vips.Image {
    */
   static pdfload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2495,7 +2495,7 @@ export class Image extends Vips.Image {
    */
   static pdfload_buffer<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2538,7 +2538,7 @@ export class Image extends Vips.Image {
    */
   static pdfload_source<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2575,7 +2575,7 @@ export class Image extends Vips.Image {
    */
   static jxlload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2606,7 +2606,7 @@ export class Image extends Vips.Image {
    */
   static jxlload_buffer<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2637,7 +2637,7 @@ export class Image extends Vips.Image {
    */
   static jxlload_source<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2673,7 +2673,7 @@ export class Image extends Vips.Image {
    */
   static openslideload<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -2714,7 +2714,7 @@ export class Image extends Vips.Image {
    */
   static openslideload_source<
     Output extends {
-      flags?: Vips.ForeignFlags;  
+      flags: Vips.ForeignFlags;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -3021,10 +3021,10 @@ export class Image extends Vips.Image {
    */
   draw_flood<
     Output extends {
-      left?: number;
-      top?: number;
-      width?: number;
-      height?: number;  
+      left: number;
+      top: number;
+      width: number;
+      height: number;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
@@ -3135,12 +3135,12 @@ export class Image extends Vips.Image {
    */
   mosaic<
     Output extends {
-      dx0?: number;
-      dy0?: number;
-      scale1?: number;
-      angle1?: number;
-      dy1?: number;
-      dx1?: number;  
+      dx0: number;
+      dy0: number;
+      scale1: number;
+      angle1: number;
+      dy1: number;
+      dx1: number;  
     },
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,

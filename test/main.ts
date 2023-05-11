@@ -8,6 +8,7 @@ import { vips_image_write_to_file } from "src/image";
 initWrappers();
 
 const result = Vips.Image.system("uname -a", { output: ["out"] });
+result![0].out
 
 console.log(result);
 
