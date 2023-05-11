@@ -147,7 +147,7 @@ export class Introspect {
         ((flags & Vips.ArgumentFlags.REQUIRED) != 0) &&
         ((flags & Vips.ArgumentFlags.DEPRECATED) == 0)
       ) {
-        if (name === "in") name = "input";
+        if (name === "in") name = "__input";
 
         this.required_input.push(name);
 
@@ -194,7 +194,7 @@ export class Introspect {
     this.member_x = null;
 
     for (const name of this.required_input) {
-      const details = this.details.get(name)!;
+      const details = this.details.get(name === "__input" ? "in" : name)!;
 
       if (details.type === Vips.Image.$gtype) {
         this.member_x = name;
@@ -249,11 +249,14 @@ export class Introspect {
     const obj: Vips.Object = {} as any;
 
     this.required_input.forEach((name, i) => {
+      const nick = name === "__input" ? "in" : name;
+
       const value = args[i];
+
       vips_operation_set(
         op,
-        _kebab(name === "input" ? "in" : name),
-        this.details.get(name)!.flags,
+        _kebab(nick),
+        this.details.get(nick)!.flags,
         match_image,
         value,
       );
