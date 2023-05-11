@@ -49,11 +49,10 @@ export class Image extends Vips.Image {
 
   /**
    * relational operation on two images
-   * @param left - Left-hand image argument
+   * @param left - this - Left-hand image argument
    * @param right - Right-hand image argument
    * @param relational - Relational to perform */
   relational(
-    left: Vips.Image,
     right: Vips.Image,
     relational: Vips.OperationRelational,
     options?: Options<
@@ -65,10 +64,9 @@ export class Image extends Vips.Image {
 
   /**
    * remainder after integer division of two images
-   * @param left - Left-hand image argument
+   * @param left - this - Left-hand image argument
    * @param right - Right-hand image argument */
   remainder(
-    left: Vips.Image,
     right: Vips.Image,
     options?: Options<
       {
@@ -79,11 +77,10 @@ export class Image extends Vips.Image {
 
   /**
    * boolean operation on two images
-   * @param left - Left-hand image argument
+   * @param left - this - Left-hand image argument
    * @param right - Right-hand image argument
    * @param boolean - Boolean to perform */
   boolean(
-    left: Vips.Image,
     right: Vips.Image,
     boolean: Vips.OperationBoolean,
     options?: Options<
@@ -95,11 +92,10 @@ export class Image extends Vips.Image {
 
   /**
    * binary math operations
-   * @param left - Left-hand image argument
+   * @param left - this - Left-hand image argument
    * @param right - Right-hand image argument
    * @param math2 - Math to perform */
   math2(
-    left: Vips.Image,
     right: Vips.Image,
     math2: Vips.OperationMath2,
     options?: Options<
@@ -111,11 +107,10 @@ export class Image extends Vips.Image {
 
   /**
    * complex binary operations on two images
-   * @param left - Left-hand image argument
+   * @param left - this - Left-hand image argument
    * @param right - Right-hand image argument
    * @param cmplx - Binary complex operation to perform */
   complex2(
-    left: Vips.Image,
     right: Vips.Image,
     cmplx: Vips.OperationComplex2,
     options?: Options<
@@ -127,10 +122,9 @@ export class Image extends Vips.Image {
 
   /**
    * form a complex image from two real images
-   * @param left - Left-hand image argument
+   * @param left - this - Left-hand image argument
    * @param right - Right-hand image argument */
   complexform(
-    left: Vips.Image,
     right: Vips.Image,
     options?: Options<
       {
@@ -141,7 +135,7 @@ export class Image extends Vips.Image {
 
   /**
    * insert image @sub into @main at @x, @y
-   * @param main - Main input image
+   * @param main - this - Main input image
    * @param sub - Sub-image to insert into main image
    * @param x - Left edge of sub in main
    * @param y - Top edge of sub in main
@@ -150,7 +144,6 @@ export class Image extends Vips.Image {
    * @param [options.background] - Color for new pixels
    */
   insert(
-    main: Vips.Image,
     sub: Vips.Image,
     x: number,
     y: number,
@@ -165,7 +158,7 @@ export class Image extends Vips.Image {
 
   /**
    * join a pair of images
-   * @param in1 - First input image
+   * @param in1 - this - First input image
    * @param in2 - Second input image
    * @param direction - Join left-right or up-down
    * @param [options] - optional parameters
@@ -175,7 +168,6 @@ export class Image extends Vips.Image {
    * @param [options.align] - Align on the low, centre or high coordinate edge
    */
   join(
-    in1: Vips.Image,
     in2: Vips.Image,
     direction: Vips.Direction,
     options?: Options<
@@ -191,13 +183,12 @@ export class Image extends Vips.Image {
 
   /**
    * extract an area from an image
-   * @param input - Input image
+   * @param input - this - Input image
    * @param left - Left edge of extract area
    * @param top - Top edge of extract area
    * @param width - Width of extract area
    * @param height - Height of extract area */
   extract_area(
-    input: Vips.Image,
     left: number,
     top: number,
     width: number,
@@ -211,13 +202,12 @@ export class Image extends Vips.Image {
 
   /**
    * extract an area from an image
-   * @param input - Input image
+   * @param input - this - Input image
    * @param left - Left edge of extract area
    * @param top - Top edge of extract area
    * @param width - Width of extract area
    * @param height - Height of extract area */
   extract_area(
-    input: Vips.Image,
     left: number,
     top: number,
     width: number,
@@ -231,7 +221,7 @@ export class Image extends Vips.Image {
 
   /**
    * extract an area from an image
-   * @param input - Input image
+   * @param input - this - Input image
    * @param width - Width of extract area
    * @param height - Height of extract area
    * @param [options] - optional parameters
@@ -247,7 +237,6 @@ export class Image extends Vips.Image {
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
   >(
-    input: Vips.Image,
     width: number,
     height: number,
     options?: Options<
@@ -264,11 +253,10 @@ export class Image extends Vips.Image {
 
   /**
    * zoom an image
-   * @param input - Input image
+   * @param input - this - Input image
    * @param xfac - Horizontal zoom factor
    * @param yfac - Vertical zoom factor */
   zoom(
-    input: Vips.Image,
     xfac: number,
     yfac: number,
     options?: Options<
@@ -280,14 +268,13 @@ export class Image extends Vips.Image {
 
   /**
    * subsample an image
-   * @param input - Input image
+   * @param input - this - Input image
    * @param xfac - Horizontal subsample factor
    * @param yfac - Vertical subsample factor
    * @param [options] - optional parameters
    * @param [options.point] - Point sample
    */
   subsample(
-    input: Vips.Image,
     xfac: number,
     yfac: number,
     options?: Options<
@@ -300,7 +287,7 @@ export class Image extends Vips.Image {
 
   /**
    * blend a pair of images with a blend mode
-   * @param base - Base image
+   * @param base - this - Base image
    * @param overlay - Overlay image
    * @param mode - VipsBlendMode to join with
    * @param [options] - optional parameters
@@ -310,7 +297,6 @@ export class Image extends Vips.Image {
    * @param [options.premultiplied] - Images have premultiplied alpha
    */
   composite2(
-    base: Vips.Image,
     overlay: Vips.Image,
     mode: Vips.BlendMode,
     options?: Options<
@@ -2847,10 +2833,9 @@ export class Image extends Vips.Image {
 
   /**
    * calculate dE76
-   * @param left - Left-hand input image
+   * @param left - this - Left-hand input image
    * @param right - Right-hand input image */
   dE76(
-    left: Vips.Image,
     right: Vips.Image,
     options?: Options<
       {
@@ -2861,10 +2846,9 @@ export class Image extends Vips.Image {
 
   /**
    * calculate dE00
-   * @param left - Left-hand input image
+   * @param left - this - Left-hand input image
    * @param right - Right-hand input image */
   dE00(
-    left: Vips.Image,
     right: Vips.Image,
     options?: Options<
       {
@@ -2875,10 +2859,9 @@ export class Image extends Vips.Image {
 
   /**
    * calculate dECMC
-   * @param left - Left-hand input image
+   * @param left - this - Left-hand input image
    * @param right - Right-hand input image */
   dECMC(
-    left: Vips.Image,
     right: Vips.Image,
     options?: Options<
       {
@@ -2901,10 +2884,9 @@ export class Image extends Vips.Image {
 
   /**
    * use pixel values to pick cases from an array of images
-   * @param index - Index image
+   * @param index - this - Index image
    * @param cases - Array of case images */
   case(
-    index: Vips.Image,
     cases: Vips.Image[],
     options?: Options<
       {
@@ -2915,7 +2897,7 @@ export class Image extends Vips.Image {
 
   /**
    * paint a rectangle on an image
-   * @param image - Image to draw on
+   * @param image - this - Image to draw on
    * @param ink - Color for pixels
    * @param left - Rect to fill
    * @param top - Rect to fill
@@ -2925,7 +2907,6 @@ export class Image extends Vips.Image {
    * @param [options.fill] - Draw a solid object
    */
   draw_rect(
-    image: Vips.Image,
     ink: number[],
     left: number,
     top: number,
@@ -2941,13 +2922,12 @@ export class Image extends Vips.Image {
 
   /**
    * draw a mask on an image
-   * @param image - Image to draw on
+   * @param image - this - Image to draw on
    * @param ink - Color for pixels
    * @param mask - Mask of pixels to draw
    * @param x - Draw mask here
    * @param y - Draw mask here */
   draw_mask(
-    image: Vips.Image,
     ink: number[],
     mask: Vips.Image,
     x: number,
@@ -2961,14 +2941,13 @@ export class Image extends Vips.Image {
 
   /**
    * draw a line on an image
-   * @param image - Image to draw on
+   * @param image - this - Image to draw on
    * @param ink - Color for pixels
    * @param x1 - Start of draw_line
    * @param y1 - Start of draw_line
    * @param x2 - End of draw_line
    * @param y2 - End of draw_line */
   draw_line(
-    image: Vips.Image,
     ink: number[],
     x1: number,
     y1: number,
@@ -2983,7 +2962,7 @@ export class Image extends Vips.Image {
 
   /**
    * draw a circle on an image
-   * @param image - Image to draw on
+   * @param image - this - Image to draw on
    * @param ink - Color for pixels
    * @param cx - Centre of draw_circle
    * @param cy - Centre of draw_circle
@@ -2992,7 +2971,6 @@ export class Image extends Vips.Image {
    * @param [options.fill] - Draw a solid object
    */
   draw_circle(
-    image: Vips.Image,
     ink: number[],
     cx: number,
     cy: number,
@@ -3007,7 +2985,7 @@ export class Image extends Vips.Image {
 
   /**
    * flood-fill an area
-   * @param image - Image to draw on
+   * @param image - this - Image to draw on
    * @param ink - Color for pixels
    * @param x - DrawFlood start point
    * @param y - DrawFlood start point
@@ -3029,7 +3007,6 @@ export class Image extends Vips.Image {
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
   >(
-    image: Vips.Image,
     ink: number[],
     x: number,
     y: number,
@@ -3048,7 +3025,7 @@ export class Image extends Vips.Image {
 
   /**
    * paint an image into another image
-   * @param image - Image to draw on
+   * @param image - this - Image to draw on
    * @param sub - Sub-image to insert into main image
    * @param x - Draw image here
    * @param y - Draw image here
@@ -3056,7 +3033,6 @@ export class Image extends Vips.Image {
    * @param [options.mode] - Combining mode
    */
   draw_image(
-    image: Vips.Image,
     sub: Vips.Image,
     x: number,
     y: number,
@@ -3070,13 +3046,12 @@ export class Image extends Vips.Image {
 
   /**
    * blur a rectangle on an image
-   * @param image - Image to draw on
+   * @param image - this - Image to draw on
    * @param left - Rect to fill
    * @param top - Rect to fill
    * @param width - Rect to fill
    * @param height - Rect to fill */
   draw_smudge(
-    image: Vips.Image,
     left: number,
     top: number,
     width: number,
@@ -3090,7 +3065,7 @@ export class Image extends Vips.Image {
 
   /**
    * merge two images
-   * @param ref - Reference image
+   * @param ref - this - Reference image
    * @param sec - Secondary image
    * @param direction - Horizontal or vertical merge
    * @param dx - Horizontal displacement from sec to ref
@@ -3099,7 +3074,6 @@ export class Image extends Vips.Image {
    * @param [options.mblend] - Maximum blend size
    */
   merge(
-    ref: Vips.Image,
     sec: Vips.Image,
     direction: Vips.Direction,
     dx: number,
@@ -3114,7 +3088,7 @@ export class Image extends Vips.Image {
 
   /**
    * mosaic two images
-   * @param ref - Reference image
+   * @param ref - this - Reference image
    * @param sec - Secondary image
    * @param direction - Horizontal or vertical mosaic
    * @param xref - Position of reference tie-point
@@ -3145,7 +3119,6 @@ export class Image extends Vips.Image {
     NeededOutput extends PartialUnion<keyof Output>,
     FilteredKeys extends FilteredOptional<Output, NeededOutput>,
   >(
-    ref: Vips.Image,
     sec: Vips.Image,
     direction: Vips.Direction,
     xref: number,
@@ -3169,7 +3142,7 @@ export class Image extends Vips.Image {
 
   /**
    * first-order mosaic of two images
-   * @param ref - Reference image
+   * @param ref - this - Reference image
    * @param sec - Secondary image
    * @param direction - Horizontal or vertical mosaic
    * @param xr1 - Position of first reference tie-point
@@ -3188,7 +3161,6 @@ export class Image extends Vips.Image {
    * @param [options.mblend] - Maximum blend size
    */
   mosaic1(
-    ref: Vips.Image,
     sec: Vips.Image,
     direction: Vips.Direction,
     xr1: number,
@@ -3213,7 +3185,7 @@ export class Image extends Vips.Image {
 
   /**
    * first-order match of two images
-   * @param ref - Reference image
+   * @param ref - this - Reference image
    * @param sec - Secondary image
    * @param xr1 - Position of first reference tie-point
    * @param yr1 - Position of first reference tie-point
@@ -3230,7 +3202,6 @@ export class Image extends Vips.Image {
    * @param [options.interpolate] - Interpolate pixels with this
    */
   match(
-    ref: Vips.Image,
     sec: Vips.Image,
     xr1: number,
     yr1: number,

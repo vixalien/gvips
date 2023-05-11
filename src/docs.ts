@@ -49,6 +49,14 @@ export function generateDoc(nickname: string) {
   let result = `/**
  * ${intro.description}\n`;
 
+  if (intro.member_x) {
+    const details = intro.details.get(intro.member_x)!;
+
+    result += ` * @param ${
+      _snake_case(intro.member_x)
+    } - this - ${details.blurb}\n`;
+  }
+
   result += intro.method_args
     .map((x) => {
       const details = intro.details.get(x);
@@ -130,7 +138,7 @@ FilteredKeys extends FilteredOptional<Output, NeededOutput>,`);
   result += "\n";
   result += indent("{", 2);
   result += "\n";
-  
+
   result += indent(`string_options?: string;`, 3);
   result += "\n";
 

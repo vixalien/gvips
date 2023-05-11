@@ -7,14 +7,6 @@ import { vips_image_write_to_file } from "src/image";
 
 initWrappers();
 
-const result = Vips.Image.system("uname -a", { output: ["out"] });
-result![0].out
-
-console.log(result);
-
-// const image = Vips.Image.new_from_file_RW("hello");
-// Vips.Image.black(100, 200);
-
 const path = Gio.File.new_for_path("dist/types.d.ts");
 
 path.replace_contents(
@@ -27,11 +19,11 @@ path.replace_contents(
 
 // const image = Vips.Image.new_from_file_RW(
 //   "/home/alien/Pictures/Exports/6 April 2023/sdffff.jpg",
-// ) as any;
+// ) as Vips.Image;
 
-// const copy = image.add([0,100,0]) as Vips.Image;
+// console.log("width height", image.width, image.height);
 
-// // const copy = image.colourspace(Vips.Interpretation.B_W) as Vips.Image;
+// // const copy = image.smartcrop() as Vips.Image;
 
 // // const copy = op.call([image, Vips.Interpretation.B_W]) as Vips.Image;
 

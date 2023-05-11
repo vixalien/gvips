@@ -198,12 +198,13 @@ export class Introspect {
 
       if (details.type === Vips.Image.$gtype) {
         this.member_x = name;
+        break;
       }
     }
 
     // method args are required args, but without the image they are a method
     // on
-    if (!this.member_x) {
+    if (this.member_x) {
       this.method_args = this.required_input
         .filter((name) => name !== this.member_x);
     } else {
