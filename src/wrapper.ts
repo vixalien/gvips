@@ -5,6 +5,26 @@ import { call, Introspect } from "./operation";
 import { vips_image_imageize } from "./image";
 import { gvalue_to_enum } from "./value";
 
+function _snake_case(name: string) {
+  return name.replace(/-/g, "_");
+}
+
+function _kebab_case(name: string) {
+  return name.replace(/_/g, "-");
+}
+
+export function get_js_name(name: string) {
+  const normalized = _snake_case(name);
+  if (normalized === "in") return "__input";
+  return normalized;
+}
+
+export function get_original_name(name: string) {
+  if (name === "__input") return "in";
+  const original = _kebab_case(name);
+  return original;
+}
+
 // Run a complex function on a non-complex image.
 //
 // The image needs to be complex, or have an even number of bands.
@@ -121,7 +141,8 @@ function initManualWrappers() {
     options: Options = {},
   ) {
     if (value instanceof Vips.Image) {
-      return (call("linear", this, -1, 0, options) as typeof Image).add(value);
+      return (call("linear", this, -1, 0, options) as unknown as typeof Image)
+        .add(value);
     } else {
       return call("linear", this, -1, value, options);
     }
@@ -189,10 +210,10 @@ function initManualWrappers() {
     match_image ??= this;
 
     if (!(then_image instanceof Vips.Image)) {
-      then_image = vips_image_imageize(match_image, then_image);
+      then_image = vips_image_imageize(match_image, then_image) as Vips.Image;
     }
     if (!(else_image instanceof Vips.Image)) {
-      else_image = vips_image_imageize(match_image, else_image);
+      else_image = vips_image_imageize(match_image, else_image) as Vips.Image;
     }
 
     return call("ifthenelse", this, then_image, else_image, options);
@@ -462,10 +483,6 @@ function initManualWrappers() {
   };
 }
 
-export function _snake_case(name: string) {
-  return name.replace(/-/g, "_");
-}
-
 export function initWrapper(nickname: string) {
   const intro = Introspect.get(nickname);
 
@@ -473,7 +490,7 @@ export function initWrapper(nickname: string) {
     return;
   }
 
-  const js_name = _snake_case(nickname);
+  const js_name = get_js_name(nickname);
 
   if (intro.member_x) {
     /// @ts-expect-error
@@ -497,6 +514,7 @@ export const banned = [
   "subtract",
   "multiply",
   "divide",
+  "remainder",
 ];
 
 function add_docs(gtype: GObject.GType) {

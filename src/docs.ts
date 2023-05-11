@@ -2,7 +2,7 @@ import GObject from "gi://GObject";
 import Vips from "gi://Vips";
 
 import { Introspect } from "./operation";
-import { _snake_case, banned } from "./wrapper";
+import { banned, get_js_name, get_original_name } from "./wrapper";
 import { gtype_to_typescript } from "./value";
 
 export function indent(string: string, n = 1) {
@@ -28,7 +28,7 @@ export function generateDoc(nickname: string) {
         if (!type) return;
 
         return indent(
-          `${_snake_case(x)}${optional ? "?" : ""}: ${
+          `${get_js_name(x)}${optional ? "?" : ""}: ${
             gtype_to_typescript(type)
           }${semicolon ? ";" : `,`}`,
           n,
@@ -44,16 +44,16 @@ export function generateDoc(nickname: string) {
 
   /** */
 
-  const js_name = _snake_case(nickname);
+  const js_name = get_js_name(nickname);
 
   let result = `/**
  * ${intro.description}\n`;
 
   if (intro.member_x) {
-    const details = intro.details.get(intro.member_x)!;
+    const details = intro.details.get(get_original_name(intro.member_x))!;
 
     result += ` * @param ${
-      _snake_case(intro.member_x)
+      get_js_name(intro.member_x)
     } - this - ${details.blurb}\n`;
   }
 
@@ -62,7 +62,7 @@ export function generateDoc(nickname: string) {
       const details = intro.details.get(x);
 
       if (!details) return;
-      return ` * @param ${_snake_case(x)} - ${details.blurb}`;
+      return ` * @param ${get_js_name(x)} - ${details.blurb}`;
     })
     .filter((x) => x)
     .join("\n");
@@ -80,7 +80,7 @@ export function generateDoc(nickname: string) {
         const details = intro.details.get(x);
 
         if (!details) return;
-        return ` * @param [options.${_snake_case(x)}] - ${details.blurb}`;
+        return ` * @param [options.${get_js_name(x)}] - ${details.blurb}`;
       })
       .filter((x) => x)
       .join("\n");
@@ -95,7 +95,7 @@ export function generateDoc(nickname: string) {
 
         if (!details) return;
         return ` * @param [options.${
-          _snake_case(x)
+          get_js_name(x)
         }] - Output - ${details.blurb}`;
       })
       .filter((x) => x)
@@ -117,7 +117,7 @@ ${intro.member_x ? "" : "static "}${js_name}`;
     });
 
     // ${intro.doc_optional_output
-    // .map(_snake_case)
+    // .map(get_js_name)
     // .map((output) => `"${output}"`)
     // .join(" | ")}
 
@@ -221,9 +221,15 @@ export class Image extends Vips.Image {
 `;
 
   let operations: (string | null)[] = [];
+  let oppas: string[] = [];
 
   function add_docs(gtype: GObject.GType) {
     const nickname = Vips.nickname_find(gtype);
+    oppas.push(nickname);
+
+    if (nickname === "affine") {
+      console.log("affine", generateDoc(nickname));
+    }
 
     if (banned.includes(nickname)) {
       return;
@@ -241,6 +247,8 @@ export class Image extends Vips.Image {
   GObject
     .type_children(GObject.type_from_name("VipsOperation"))
     .map(add_docs);
+
+  console.log("oppas", oppas.sort());
 
   let string = "";
 

@@ -10,13 +10,9 @@ import {
   vips_object_set,
 } from "./object";
 import { vips_image_imageize } from "./image";
-import { _snake_case } from "./wrapper";
+import { get_js_name, get_original_name } from "./wrapper";
 
 Vips.init("vips-test");
-
-function _kebab(name: string) {
-  return name.replace(/_/g, "-");
-}
 
 export interface ArgumentInfo {
   name: string;
@@ -250,13 +246,13 @@ export class Introspect {
     const obj: Vips.Object = {} as any;
 
     this.required_input.forEach((name, i) => {
-      const nick = name === "__input" ? "in" : name;
+      const nick = get_original_name(name);
 
       const value = args[i];
 
       vips_operation_set(
         op,
-        _kebab(nick),
+        nick,
         this.details.get(nick)!.flags,
         match_image,
         value,
@@ -318,7 +314,7 @@ export class Introspect {
     // fetch optional output args
     const opts: Record<string, any> = {};
     this.optional_output.forEach((name) => {
-      if (needed_output.includes(_snake_case(name))) {
+      if (needed_output.includes(get_original_name(name))) {
         const value = vips_object_get(operation, name);
         opts[name] = value;
       }
