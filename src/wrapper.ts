@@ -29,11 +29,7 @@ export function get_original_name(name: string) {
 //
 // The image needs to be complex, or have an even number of bands.
 // The input can be int, the output is always float or double.
-function runCmplx<
-  Image extends Vips.Image & Record<string, any> =
-    & Vips.Image
-    & Record<string, any>,
->(image: Image, fn: (x: Image) => any) {
+function runCmplx(image: Vips.Image, fn: (x: Vips.Image) => any) {
   var originalFormat = image.format;
   var newFormat;
 
@@ -49,14 +45,17 @@ function runCmplx<
       image.format !== Vips.BandFormat.FLOAT &&
       image.format !== Vips.BandFormat.DOUBLE
     ) {
-      image = image.cast("float");
+      image = image.cast(Vips.BandFormat.FLOAT) as Vips.Image;
     }
 
     newFormat = (image.format === Vips.BandFormat.DOUBLE)
       ? Vips.BandFormat.DPCOMPLEX
       : Vips.BandFormat.COMPLEX;
 
-    image = image.copy({ format: newFormat, bands: image.bands / 2 });
+    image = image.copy({
+      format: newFormat,
+      bands: image.bands / 2,
+    }) as Vips.Image;
   }
 
   image = fn(image);
@@ -69,7 +68,10 @@ function runCmplx<
       ? Vips.BandFormat.DOUBLE
       : Vips.BandFormat.FLOAT;
 
-    image = image.copy({ format: newFormat, bands: image.bands * 2 });
+    image = image.copy({
+      format: newFormat,
+      bands: image.bands * 2,
+    }) as Vips.Image;
   }
 
   return image;
@@ -257,7 +259,7 @@ function initManualWrappers() {
 
     // if [other] is all numbers, we can use bandjoinConst
     if (other.every((x) => typeof x === "number")) {
-      return this.bandjoin_const(other, options);
+      return this.bandjoin_const(other as number[], options);
     } else {
       other.unshift(this);
       return call("bandjoin", other, options);
@@ -391,71 +393,77 @@ function initManualWrappers() {
   };
 
   Image.prototype.real = function (value, options) {
-    return this.complexget("real", options);
+    return this.complexget(Vips.OperationComplexget.REAL, options);
   };
 
   Image.prototype.imag = function (value, options) {
-    return this.complexget("imag", options);
+    return this.complexget(Vips.OperationComplexget.IMAG, options);
   };
 
   Image.prototype.polar = function (options) {
-    return runCmplx(this, (x) => x.complex("polar", options));
+    return runCmplx(
+      this,
+      (x) => x.complex(Vips.OperationComplex.POLAR, options),
+    );
   };
 
   Image.prototype.rect = function (options) {
-    return runCmplx(this, (x) => x.complex("rect", options));
+    return runCmplx(
+      this,
+      (x) => x.complex(Vips.OperationComplex.RECT, options),
+    );
   };
 
   Image.prototype.conj = function (options) {
-    return this.complex("conj", options);
+    return this.complex(Vips.OperationComplex.CONJ, options);
   };
 
   Image.prototype.sin = function (options) {
-    return this.math("sin", options);
+    return this.math(Vips.OperationMath.SIN, options);
   };
 
   Image.prototype.cos = function (options) {
-    return this.math("cos", options);
+    return this.math(Vips.OperationMath.COS, options);
   };
 
   Image.prototype.tan = function (options) {
-    return this.math("tan", options);
+    return this.math(Vips.OperationMath.TAN, options);
   };
 
   Image.prototype.asin = function (options) {
-    return this.math("asin", options);
+    return this.math(Vips.OperationMath.ASIN, options);
   };
 
   Image.prototype.acos = function (options) {
-    return this.math("acos", options);
+    return this.math(Vips.OperationMath.ACOS, options);
   };
 
   Image.prototype.atan = function (options) {
-    return this.math("atan", options);
+    return this.math(Vips.OperationMath.ATAN, options);
   };
 
   Image.prototype.log = function (options) {
-    return this.math("log", options);
+    return this.math(Vips.OperationMath.LOG, options);
   };
 
   Image.prototype.log10 = function (options) {
-    return this.math("log10", options);
+    return this.math(Vips.OperationMath.LOG10, options);
   };
 
   Image.prototype.exp = function (options) {
-    return this.math("exp", options);
+    return this.math(Vips.OperationMath.EXP, options);
   };
 
   Image.prototype.exp10 = function (options) {
-    return this.math("exp10", options);
+    return this.math(Vips.OperationMath.EXP10, options);
   };
 
   Image.prototype.erode = function (mask, options) {
-    return this.morph(mask, "erode", options);
+    return this.morph(mask, Vips.OperationMorphology.ERODE, options);
   };
 
   Image.prototype.dilate = function (mask, options) {
-    return this.morph(mask, "dilate", options);
+    return this.morph(mask, Vips.OperationMorphology.DILATE, options);
   };
 
   Image.prototype.median = function (size, options) {
@@ -463,23 +471,23 @@ function initManualWrappers() {
   };
 
   Image.prototype.fliphor = function (options) {
-    return this.flip("horizontal", options);
+    return this.flip(Vips.Direction.HORIZONTAL, options);
   };
 
   Image.prototype.flipver = function (options) {
-    return this.flip("vertical", options);
+    return this.flip(Vips.Direction.VERTICAL, options);
   };
 
   Image.prototype.rot90 = function (options) {
-    return this.rot("d90", options);
+    return this.rot(Vips.Angle.D90, options);
   };
 
   Image.prototype.rot180 = function (options) {
-    return this.rot("d180", options);
+    return this.rot(Vips.Angle.D180, options);
   };
 
   Image.prototype.rot270 = function (options) {
-    return this.rot("d270", options);
+    return this.rot(Vips.Angle.D270, options);
   };
 }
 
