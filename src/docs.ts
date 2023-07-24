@@ -105,7 +105,7 @@ export function generateDoc(nickname: string) {
   }
 
   result += ` */
-${intro.member_x ? "" : "static "}${js_name}`;
+${intro.member_x ? "" : "export function "}${js_name}`;
 
   if (intro.doc_optional_output.length > 0) {
     result += `<
@@ -212,15 +212,13 @@ type FilteredOptional<
   Options extends Record<string, any>,
   Given extends string | number | symbol,
 > = Given extends void ? never : Extract<keyof Options, Given>;
-
-export class Image extends Vips.Image {
 `;
 
   const footer = `
-}
 `;
 
   let operations: [string, (string | null)][] = [];
+  let static_operations: [string, (string | null)][] = [];
 
   function add_docs(gtype: GObject.GType) {
     const nickname = Vips.nickname_find(gtype);
@@ -230,7 +228,16 @@ export class Image extends Vips.Image {
     }
 
     try {
-      operations.push([nickname, generateDoc(nickname)]);
+      const data = [nickname, generateDoc(nickname)] as [
+        string,
+        (string | null),
+      ];
+
+      if (Introspect.get(nickname).member_x) {
+        operations.push(data);
+      } else {
+        static_operations.push(data);
+      }
     } catch {}
 
     GObject
@@ -242,13 +249,27 @@ export class Image extends Vips.Image {
     .type_children(GObject.type_from_name("VipsOperation"))
     .map(add_docs);
 
-  let string = "";
-
-  string += operations
+  const operation_string = operations
     .filter((x) => x[1])
     .sort((a, b) => a[0].localeCompare(b[0]))
     .map((x) => indent(x[1]!))
     .join("\n\n");
 
-  return `${header}${string}${footer}`;
+  const static_string = static_operations
+    .filter((x) => x[1])
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map((x) => indent(x[1]!))
+    .join("\n\n");
+
+  return `${header}
+declare module "${vips_type}" {
+  interface Image {
+${indent(operation_string)}
+  }
+
+  namespace Image {
+${indent(static_string)}
+  }
+}
+${footer}`;
 }

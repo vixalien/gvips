@@ -14,18 +14,17 @@
     "module": "ESNext",
     "outDir": "_build",
     "lib": [
-      "ES2020",
-      "DOM"
+      "ES2020"
     ],
     // We use esbuild to build
     "noEmit": true,
   },
   "include": [
     "lib/ambient.d.ts",
+    "dist/types.d.ts",
     "gi-types/gi.d.ts",
     "src/**/*.ts",
     "test/*.ts",
-    "dist/*.ts"
   ],
   "exclude": [
     "node_modules/@types/**",

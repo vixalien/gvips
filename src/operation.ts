@@ -329,7 +329,7 @@ export class Introspect {
     if (result.length == 0) {
       return null;
     } else if (result.length == 1) {
-      return result;
+      return result[0];
     }
 
     return result;

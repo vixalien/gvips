@@ -16,11 +16,13 @@ function _kebab_case(name: string) {
 export function get_js_name(name: string) {
   const normalized = _snake_case(name);
   if (normalized === "in") return "__input";
+  if (normalized === "switch") return "switch_";
   return normalized;
 }
 
 export function get_original_name(name: string) {
   if (name === "__input") return "in";
+  if (name === "switch_") return "switch";
   const original = _kebab_case(name);
   return original;
 }
@@ -230,12 +232,12 @@ function initManualWrappers() {
 
   // "crop" as a synonym for extractArea
   Image.prototype.crop = function (...args: any[]) {
-    return call("extractArea", this, ...args);
+    return call("extract_area", this, ...args);
   };
 
   // "band" as a synonym for extractBand
   Image.prototype.band = function (...args: any[]) {
-    return call("extractBand", this, ...args);
+    return call("extract_band", this, ...args);
   };
 
   // convenience methods
