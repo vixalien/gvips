@@ -228,12 +228,12 @@ export function generateDocs(api_version = 8, vips_type = `gi://Vips?version=${a
 
     GObject
       .type_children(gtype)
-      .map(add_docs);
+      .forEach(add_docs);
   }
 
   GObject
     .type_children(GObject.type_from_name("VipsOperation"))
-    .map(add_docs);
+    .forEach(add_docs);
 
   const operation_string = operations
     .filter((x) => x[1])
