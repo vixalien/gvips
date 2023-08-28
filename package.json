@@ -8,21 +8,20 @@
   "license": "MIT",
   "private": true,
   "type": "module",
-  "dependencies": {
-    "@gi.ts/cli": "^1.5.10",
-    "@gi.ts/lib": "^1.5.13",
+  "devDependencies": {
+    "@gi.ts/cli": "^2.0.0-alpha.0",
+    "@gi.ts/lib": "^2.0.0-alpha.0",
     "esbuild": "^0.17.18",
     "typescript": "^5.0.4"
   },
   "scripts": {
     "typecheck": "tsc --strict",
     "generate-types": "gi-ts generate",
-    "generate-index": "node lib/gen-gi.js",
-    "generate": "yarn generate-types && yarn generate-index",
     "config": "gi-ts config",
     "build": "node lib/build.js",
-    "build-docs": "LD_LIBRARY_PATH=build/gvips-ext GI_TYPELIB_PATH=build/gvips-ext gjs -m _build/generate-docs.js",
-    "test-raw": "LD_LIBRARY_PATH=build/gvips-ext GI_TYPELIB_PATH=build/gvips-ext gjs -m _build/runner.js",
+    "docs": "LD_LIBRARY_PATH=build/gvips-ext GI_TYPELIB_PATH=build/gvips-ext gjs -m bin/docs.js",
+    "build-test": "node lib/build-test.js",
+    "run-test": "LD_LIBRARY_PATH=build/gvips-ext GI_TYPELIB_PATH=build/gvips-ext gjs -m _build/runner.js",
     "test": "yarn build && yarn test-raw"
   }
 }

@@ -317,6 +317,36 @@
         "slug": "dbusglib10"
     },
     {
+        "name": "Devhelp",
+        "api_version": "3.0",
+        "c_prefix": [
+            "dh"
+        ],
+        "path": "/usr/share/gir-1.0/Devhelp-3.0.gir",
+        "id": "Devhelp-3.0.gir",
+        "slug": "devhelp30"
+    },
+    {
+        "name": "Dex",
+        "api_version": "1",
+        "c_prefix": [
+            "dex"
+        ],
+        "path": "/usr/share/gir-1.0/Dex-1.gir",
+        "id": "Dex-1.gir",
+        "slug": "dex1"
+    },
+    {
+        "name": "Dmap",
+        "api_version": "4.0",
+        "c_prefix": [
+            "dmap"
+        ],
+        "path": "/usr/share/gir-1.0/Dmap-4.0.gir",
+        "id": "Dmap-4.0.gir",
+        "slug": "dmap40"
+    },
+    {
         "name": "EBackend",
         "api_version": "1.2",
         "c_prefix": [
@@ -736,6 +766,16 @@
         "path": "/usr/share/gir-1.0/GExiv2-0.10.gir",
         "id": "GExiv2-0.10.gir",
         "slug": "gexiv2010"
+    },
+    {
+        "name": "Ggit",
+        "api_version": "1.0",
+        "c_prefix": [
+            "ggit"
+        ],
+        "path": "/usr/share/gir-1.0/Ggit-1.0.gir",
+        "id": "Ggit-1.0.gir",
+        "slug": "ggit10"
     },
     {
         "name": "Gio",
@@ -1252,6 +1292,16 @@
         "slug": "gstrtsp10"
     },
     {
+        "name": "GstRtspServer",
+        "api_version": "1.0",
+        "c_prefix": [
+            "gst"
+        ],
+        "path": "/usr/share/gir-1.0/GstRtspServer-1.0.gir",
+        "id": "GstRtspServer-1.0.gir",
+        "slug": "gstrtspserver10"
+    },
+    {
         "name": "GstSdp",
         "api_version": "1.0",
         "c_prefix": [
@@ -1392,6 +1442,26 @@
         "slug": "gtksource5"
     },
     {
+        "name": "GtkSpell",
+        "api_version": "3.0",
+        "c_prefix": [
+            "gtk_spell"
+        ],
+        "path": "/usr/share/gir-1.0/GtkSpell-3.0.gir",
+        "id": "GtkSpell-3.0.gir",
+        "slug": "gtkspell30"
+    },
+    {
+        "name": "GtkVnc",
+        "api_version": "2.0",
+        "c_prefix": [
+            "vnc"
+        ],
+        "path": "/usr/share/gir-1.0/GtkVnc-2.0.gir",
+        "id": "GtkVnc-2.0.gir",
+        "slug": "gtkvnc20"
+    },
+    {
         "name": "GTop",
         "api_version": "2.0",
         "c_prefix": [
@@ -1480,6 +1550,26 @@
         "path": "/usr/share/gir-1.0/GUsb-1.0.gir",
         "id": "GUsb-1.0.gir",
         "slug": "gusb10"
+    },
+    {
+        "name": "GVnc",
+        "api_version": "1.0",
+        "c_prefix": [
+            "vnc"
+        ],
+        "path": "/usr/share/gir-1.0/GVnc-1.0.gir",
+        "id": "GVnc-1.0.gir",
+        "slug": "gvnc10"
+    },
+    {
+        "name": "GVncPulse",
+        "api_version": "1.0",
+        "c_prefix": [
+            "vnc"
+        ],
+        "path": "/usr/share/gir-1.0/GVncPulse-1.0.gir",
+        "id": "GVncPulse-1.0.gir",
+        "slug": "gvncpulse10"
     },
     {
         "name": "GWeather",
@@ -1574,13 +1664,13 @@
     },
     {
         "name": "JavaScriptCore",
-        "api_version": "5.0",
+        "api_version": "6.0",
         "c_prefix": [
             "jsc"
         ],
-        "path": "/usr/share/gir-1.0/JavaScriptCore-5.0.gir",
-        "id": "JavaScriptCore-5.0.gir",
-        "slug": "javascriptcore50"
+        "path": "/usr/share/gir-1.0/JavaScriptCore-6.0.gir",
+        "id": "JavaScriptCore-6.0.gir",
+        "slug": "javascriptcore60"
     },
     {
         "name": "Jcat",
@@ -1603,6 +1693,16 @@
         "slug": "json10"
     },
     {
+        "name": "Jsonrpc",
+        "api_version": "1.0",
+        "c_prefix": [
+            "jsonrpc"
+        ],
+        "path": "/usr/share/gir-1.0/Jsonrpc-1.0.gir",
+        "id": "Jsonrpc-1.0.gir",
+        "slug": "jsonrpc10"
+    },
+    {
         "name": "LangTag",
         "api_version": "0.6",
         "c_prefix": [
@@ -1621,6 +1721,16 @@
         "path": "/usr/share/gir-1.0/Libosinfo-1.0.gir",
         "id": "Libosinfo-1.0.gir",
         "slug": "libosinfo10"
+    },
+    {
+        "name": "Libproxy",
+        "api_version": "1.0",
+        "c_prefix": [
+            "px"
+        ],
+        "path": "/usr/share/gir-1.0/Libproxy-1.0.gir",
+        "id": "Libproxy-1.0.gir",
+        "slug": "libproxy10"
     },
     {
         "name": "LibvirtGConfig",
@@ -1763,16 +1873,6 @@
         "slug": "nm10"
     },
     {
-        "name": "NMA",
-        "api_version": "1.0",
-        "c_prefix": [
-            "nma"
-        ],
-        "path": "/usr/share/gir-1.0/NMA-1.0.gir",
-        "id": "NMA-1.0.gir",
-        "slug": "nma10"
-    },
-    {
         "name": "NMA4",
         "api_version": "1.0",
         "c_prefix": [
@@ -1803,14 +1903,14 @@
         "slug": "ostree10"
     },
     {
-        "name": "PackageKitGlib",
-        "api_version": "1.0",
+        "name": "Panel",
+        "api_version": "1",
         "c_prefix": [
-            "pk"
+            "panel"
         ],
-        "path": "/usr/share/gir-1.0/PackageKitGlib-1.0.gir",
-        "id": "PackageKitGlib-1.0.gir",
-        "slug": "packagekitglib10"
+        "path": "/usr/share/gir-1.0/Panel-1.gir",
+        "id": "Panel-1.gir",
+        "slug": "panel1"
     },
     {
         "name": "Pango",
@@ -2084,6 +2184,16 @@
         "slug": "spiceclientgtk30"
     },
     {
+        "name": "Template",
+        "api_version": "1.0",
+        "c_prefix": [
+            "tmpl"
+        ],
+        "path": "/usr/share/gir-1.0/Template-1.0.gir",
+        "id": "Template-1.0.gir",
+        "slug": "template10"
+    },
+    {
         "name": "Totem",
         "api_version": "1.0",
         "c_prefix": [
@@ -2176,6 +2286,16 @@
         "slug": "vulkan10"
     },
     {
+        "name": "WebKit",
+        "api_version": "6.0",
+        "c_prefix": [
+            "webkit"
+        ],
+        "path": "/usr/share/gir-1.0/WebKit-6.0.gir",
+        "id": "WebKit-6.0.gir",
+        "slug": "webkit60"
+    },
+    {
         "name": "WebKit2",
         "api_version": "4.0",
         "c_prefix": [
@@ -2194,16 +2314,6 @@
         "path": "/usr/share/gir-1.0/WebKit2-4.1.gir",
         "id": "WebKit2-4.1.gir",
         "slug": "webkit241"
-    },
-    {
-        "name": "WebKit2",
-        "api_version": "5.0",
-        "c_prefix": [
-            "webkit"
-        ],
-        "path": "/usr/share/gir-1.0/WebKit2-5.0.gir",
-        "id": "WebKit2-5.0.gir",
-        "slug": "webkit250"
     },
     {
         "name": "WebKit2WebExtension",
@@ -2226,14 +2336,14 @@
         "slug": "webkit2webextension41"
     },
     {
-        "name": "WebKit2WebExtension",
-        "api_version": "5.0",
+        "name": "WebKitWebProcessExtension",
+        "api_version": "6.0",
         "c_prefix": [
             "webkit"
         ],
-        "path": "/usr/share/gir-1.0/WebKit2WebExtension-5.0.gir",
-        "id": "WebKit2WebExtension-5.0.gir",
-        "slug": "webkit2webextension50"
+        "path": "/usr/share/gir-1.0/WebKitWebProcessExtension-6.0.gir",
+        "id": "WebKitWebProcessExtension-6.0.gir",
+        "slug": "webkitwebprocessextension60"
     },
     {
         "name": "win32",
@@ -2244,6 +2354,16 @@
         "path": "/usr/share/gir-1.0/win32-1.0.gir",
         "id": "win32-1.0.gir",
         "slug": "win3210"
+    },
+    {
+        "name": "Wnck",
+        "api_version": "3.0",
+        "c_prefix": [
+            "wnck"
+        ],
+        "path": "/usr/share/gir-1.0/Wnck-3.0.gir",
+        "id": "Wnck-3.0.gir",
+        "slug": "wnck30"
     },
     {
         "name": "Wp",

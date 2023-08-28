@@ -5,7 +5,7 @@
     "paths": {
       "*": [
         "*",
-        "types/*"
+        "gi-types/*"
       ],
     },
     "target": "es2017",
@@ -22,7 +22,7 @@
   "include": [
     "lib/ambient.d.ts",
     "dist/types.d.ts",
-    "gi-types/gi.d.ts",
+    "gi-types/*",
     "src/**/*.ts",
     "test/*.ts",
   ],
