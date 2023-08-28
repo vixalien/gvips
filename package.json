@@ -2,11 +2,10 @@
   "name": "gvips",
   "version": "0.0.1",
   "description": "Bindings to VIPS for GJS",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": "https://github.com/vixalien/gvips",
   "author": "vixalien",
   "license": "MIT",
-  "private": true,
   "type": "module",
   "devDependencies": {
     "@gi.ts/cli": "^2.0.0-alpha.0",
