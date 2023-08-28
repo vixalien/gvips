@@ -36,8 +36,8 @@ GvipsExtArgumentInfo *gvips_ext_object_get_argument(VipsObject *object, const ch
 
 void gvips_ext_object_args_map(VipsObject *object, GvipsExtArgsMapFunc fn)
 {
-  const char **names;
-  int *flags, n_args;
+  const gchar **names;
+  gint *flags, n_args;
 
   if (vips_object_get_args(object, &names, &flags, &n_args))
   {
@@ -48,9 +48,6 @@ void gvips_ext_object_args_map(VipsObject *object, GvipsExtArgsMapFunc fn)
   {
     fn(names[i], flags[i]);
   }
-
-  g_free(names);
-  g_free(flags);
 }
 
 GType gvips_ext_value_get_type(GValue *value)
