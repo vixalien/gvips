@@ -196,22 +196,8 @@ FilteredKeys extends FilteredOptional<Output, NeededOutput>,`);
   return result;
 }
 
-export function generateDocs(vips_type = "gi-types/vips8") {
+export function generateDocs(api_version = 8, vips_type = `gi://Vips?version=${api_version}.0`) {
   const header = `// this file is generated automatically -- do not edit!
-
-import * as Vips from "${vips_type}";
-
-type Options<
-  Options extends Record<string, any>,
-  Output extends (string | number | symbol)[] | void = void,
-> = Options & (Output extends void ? {} : { output?: Output });
-
-type PartialUnion<T> = T extends infer U ? Partial<U> : never;
-
-type FilteredOptional<
-  Options extends Record<string, any>,
-  Given extends string | number | symbol,
-> = Given extends void ? never : Extract<keyof Options, Given>;
 `;
 
   const footer = `
@@ -263,12 +249,28 @@ type FilteredOptional<
 
   return `${header}
 declare module "${vips_type}" {
-  interface Image {
-${indent(operation_string)}
-  }
+  import Vips from "${vips_type}";
 
-  namespace Image {
-${indent(static_string)}
+  export namespace Vips${api_version} {
+    type Options<
+      Options extends Record<string, any>,
+      Output extends (string | number | symbol)[] | void = void,
+    > = Options & (Output extends void ? {} : { output?: Output });
+
+    type PartialUnion<T> = T extends infer U ? Partial<U> : never;
+
+    type FilteredOptional<
+      Options extends Record<string, any>,
+      Given extends string | number | symbol,
+    > = Given extends void ? never : Extract<keyof Options, Given>;
+
+    interface Image {
+${indent(operation_string, 2)}
+    }
+
+    namespace Image {
+${indent(static_string, 2)}
+    }
   }
 }
 ${footer}`;
