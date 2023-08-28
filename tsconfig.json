@@ -12,12 +12,14 @@
     "baseUrl": ".",
     "moduleResolution": "node",
     "module": "ESNext",
-    "outDir": "_build",
+    "outDir": "dist",
     "lib": [
       "ES2020"
     ],
     // We use esbuild to build
-    "noEmit": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "skipLibCheck": true,
   },
   "include": [
     "lib/ambient.d.ts",
@@ -27,6 +29,6 @@
     "test/*.ts",
   ],
   "exclude": [
-    "node_modules/@types/**",
+    "node_modules/@types/**"
   ],
 }

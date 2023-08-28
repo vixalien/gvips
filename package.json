@@ -15,8 +15,9 @@
     "typescript": "^5.0.4"
   },
   "scripts": {
-    "prepack": "rm -rf dist && yarn build && yarn docs",
+    "prepack": "rm -rf dist && yarn build && yarn docs && yarn types",
     "typecheck": "tsc --strict",
+    "types": "tsc --strict -p tsconfig.compile.json",
     "generate-types": "gi-ts generate",
     "config": "gi-ts config",
     "build": "node lib/build.js",
@@ -24,5 +25,16 @@
     "build-test": "node lib/build-test.js",
     "run-test": "LD_LIBRARY_PATH=build/gvips-ext GI_TYPELIB_PATH=build/gvips-ext gjs -m _build/runner.js",
     "test": "yarn build && yarn test-raw"
+  },
+  "exports": {
+    "import": "./dist/index.ts",
+    "wrapper.js": "./dist/wrapper.js",
+    "docs.js": "./dist/docs.js"
+  },
+  "files": [
+    "dist/*"
+  ],
+  "dependencies": {
+    "glob": "^10.3.3"
   }
 }
