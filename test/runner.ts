@@ -4,8 +4,8 @@ import GLib from "gi://GLib";
 import System from "system";
 
 imports.package.init({
-  name: "com.vixalien.GVips",
-  version: "42",
+  name: "com.vixalien.GVipsTest",
+  version: "1.0",
   prefix: "/usr/local",
   libdir: "/usr/local/lib",
 });

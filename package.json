@@ -15,6 +15,7 @@
     "typescript": "^5.0.4"
   },
   "scripts": {
+    "prepack": "rm -rf dist && yarn build && yarn docs",
     "typecheck": "tsc --strict",
     "generate-types": "gi-ts generate",
     "config": "gi-ts config",

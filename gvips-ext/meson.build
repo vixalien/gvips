@@ -1,6 +1,6 @@
 version = meson.project_version()
 
-lib = library(
+gvips_lib = library(
   'gvips-ext',
   'gvips-ext.c',
   version: version,
@@ -11,8 +11,8 @@ lib = library(
 
 gnome = import('gnome')
 
-gnome.generate_gir(
-  lib,
+gvips_gir = gnome.generate_gir(
+  gvips_lib,
   sources: [
     'gvips-ext.c',
     'gvips-ext.h',
