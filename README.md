@@ -39,8 +39,8 @@ To use the library, do:
 
 ```js
 import Vips from "gi://Vips";
-import { initWrappers } from "gvips/wrapper";
-import { vips_image_write_to_file } from "gvips/image";
+import { initWrappers } from "gvips/dist/wrapper";
+import { vips_image_write_to_file } from "gvips/dist/image";
 
 // convenience wrappers for vips operations
 initWrappers();
