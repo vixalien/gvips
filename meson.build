@@ -9,8 +9,15 @@ subdir('gvips-ext')
 
 yarn = find_program('yarn', required: true)
 
+yarn_install = custom_target(
+  'yarn install',
+  command: [yarn, 'install'],
+  output: ['yarn_install']
+)
+
 custom_target(
-  'build',
+  'yarn prepack',
   command: [yarn, 'prepack'],
-  output: ['yarn-build']
+  depends: [yarn_install],
+  output: ['yarn_build']
 )
