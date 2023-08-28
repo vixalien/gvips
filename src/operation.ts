@@ -62,7 +62,7 @@ export function vips_operation_set(
   // modify args need to be copied before they are set
   if ((flags & Vips.ArgumentFlags.MODIFY) != 0) {
     // get a unique copy
-    value = (value).copy().copy_memory();
+    value = value.copy().copy_memory();
   }
 
   vips_object_set(op, name, value);
