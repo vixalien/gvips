@@ -24,7 +24,7 @@
     "docs": "LD_LIBRARY_PATH=build/gvips-ext GI_TYPELIB_PATH=build/gvips-ext gjs -m bin/docs.js",
     "build-test": "node lib/build-test.js",
     "run-test": "LD_LIBRARY_PATH=build/gvips-ext GI_TYPELIB_PATH=build/gvips-ext gjs -m _build/runner.js",
-    "test": "yarn build && yarn test-raw"
+    "test": "yarn build-test && yarn run-test"
   },
   "exports": {
     "import": "./dist/index.ts",
