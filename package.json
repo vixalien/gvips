@@ -21,6 +21,7 @@
     "generate": "yarn generate-types && yarn generate-index",
     "config": "gi-ts config",
     "build": "node lib/build.js",
+    "build-docs": "LD_LIBRARY_PATH=build/gvips-ext GI_TYPELIB_PATH=build/gvips-ext gjs -m _build/generate-docs.js",
     "test-raw": "LD_LIBRARY_PATH=build/gvips-ext GI_TYPELIB_PATH=build/gvips-ext gjs -m _build/runner.js",
     "test": "yarn build && yarn test-raw"
   }
