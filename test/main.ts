@@ -1,16 +1,17 @@
-import Vips from "../src/index";
-import GObject from "gi://GObject";
+import Vips from "gi://Vips";
+import { initWrappers } from "src/wrapper";
 import { vips_image_write_to_file } from "src/image";
 
-const image = Vips.Image.new_from_file_RW(
-  "/home/alien/Pictures/Screenshot.png",
+// convenience wrappers for vips operations
+initWrappers();
+
+const image = Vips.Image.black(100, 100);
+const [output, meta] = image.autorot({
+  output: ["angle", "flip"],
+});
+
+console.log(
+  "image was rotated " + meta.angle + " degrees. flipped: " + meta.flip,
 );
 
-// free form crop
-const result = image.extract_area(0, 0, 500, 400);
-
-console.log("typeof result", result);
-
-result.pngsave("test.png");
-
-// console.log(vips_image_write_to_file(result, "test.png"));
+vips_image_write_to_file(output, "test.png");
