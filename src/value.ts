@@ -68,7 +68,7 @@ export function gvalue_set(gvalue: GObject.Value, value: any) {
     const array = Vips.value_get_array_image(gvalue);
 
     value.forEach((image: Vips.Image, i: number) => {
-      image.ref();
+      // image.ref();
       array[i] = image;
     });
   } else if (gtype === types.blob) {
@@ -106,7 +106,7 @@ export function gvalue_get(gvalue: GObject.Value) {
     return Vips.value_get_ref_string(gvalue)[0];
   } else if (gtype === types.image) {
     const object = gvalue.get_object();
-    if (object) object.ref();
+    // if (object) object.ref();
     return object;
   } else if (gtype === types.array_int) {
     return Vips.value_get_array_int(gvalue);

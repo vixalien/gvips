@@ -4,7 +4,6 @@ declare module "gi://Vips?version=8.0" {
   import Vips from "gi://Vips?version=8.0";
 
   export namespace Vips8 {
-
     type Options<
       Options extends Record<string, any>,
       Output extends (string | number | symbol)[] | void = void,
